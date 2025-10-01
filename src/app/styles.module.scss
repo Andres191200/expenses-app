@@ -1,0 +1,42 @@
+.homePage {
+  padding: var(--spacing-md);
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+}
+
+.mainGridLayout {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  border: 2px solid var(--border);
+  border-radius: var(--border-radius-sm);
+}
+
+.headerGrid {
+  display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  grid-template-areas: "mainExpensesCost monthlyExpensesCost topExpensesCategories topExpensesCategories"
+                      "mainExpensesCost highestExpenseCost topExpensesCategories averageExpensesCost";
+  gap: var(--spacing-sm);
+  & > div {
+    background-color: green;
+  }
+
+  .mainExpensesCost{
+    grid-area: mainExpensesCost;
+  }
+  .monthlyExpensesCost{
+    grid-area: monthlyExpensesCost;
+  }
+  .topExpensesCategories{
+    grid-area: topExpensesCategories;
+  }
+  .averageExpensesCost{
+    grid-area: averageExpensesCost;
+  }
+  .highestExpenseCost{
+    grid-area: highestExpenseCost;
+  }
+}
