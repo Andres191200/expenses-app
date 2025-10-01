@@ -1,7 +1,20 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+
+:root{
+    --bg-dark: oklch(0.1 0.07 294);
+    --bg: oklch(0.15 0.07 294);
+    --bg-light: oklch(0.2 0.07 294);
+    --text: oklch(0.96 0.1 294);
+    --text-muted: oklch(0.76 0.1 294);
+    --highlight: oklch(0.5 0.14 294);
+    --border: oklch(0.4 0.14 294);
+    --border-muted: oklch(0.3 0.14 294);
+    --primary: oklch(0.76 0.14 294);
+    --secondary: oklch(0.76 0.14 114);
+    --danger: oklch(0.7 0.14 30);
+    --warning: oklch(0.7 0.14 100);
+    --success: oklch(0.7 0.14 160);
+    --info: oklch(0.7 0.14 260);
+}
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -28,7 +41,11 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+h1,h2,h3,h4,h5,h6,a,p,button {
+    color:var(--text);
+}
 body {
+    background-color: var(--bg);
 	line-height: 1;
 }
 ol, ul {
