@@ -1,16 +1,22 @@
 .homePage {
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-lg) 0 var(--spacing-lg);
   box-sizing: border-box;
   height: 100vh;
-  width: 100vw;
+  // width: 100vw;
 }
 
 .mainGridLayout {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap:var(--spacing-md);
   height: 100%;
   width: 100%;
   border: 2px solid var(--border);
   border-radius: var(--border-radius-sm);
+}
+
+.headerGrid, .expensesGrid{
+  height: 100%;
 }
 
 .headerGrid {
@@ -36,5 +42,15 @@
   }
   .highestExpenseCost{
     grid-area: highestExpenseCost;
+  }
+}
+
+.expensesGrid{
+  display: grid;
+  gap:var(--spacing-sm);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+  & > div{
+    background-color: yellow;
   }
 }
