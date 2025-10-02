@@ -15,9 +15,7 @@
 
 .headerGrid {
   display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto auto;
-  grid-template-areas: "mainExpensesCost monthlyExpensesCost topExpensesCategories topExpensesCategories"
+  grid-template-areas: "mainExpensesCost monthlyExpensesCost topExpensesCategories averageExpensesCost"
                       "mainExpensesCost highestExpenseCost topExpensesCategories averageExpensesCost";
   gap: var(--spacing-sm);
   & > div {
