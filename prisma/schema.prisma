@@ -11,4 +11,5 @@ model Expense {
   id    Int    @id @default(autoincrement())
   title  String
   value Int
+  createdAt DateTime @default(now())
 }
