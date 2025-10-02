@@ -8,7 +8,7 @@ export default function Home() {
           <div className={styles.mainExpensesCost} />
           <div className={styles.monthlyExpensesCost} />
           <div className={styles.topExpensesCategories} />
-          <div className={styles.averageExpensesCost} />
+          <div className={styles.timeLineExpensesTracker} />
           <div className={styles.highestExpenseCost} />
         </div>
 

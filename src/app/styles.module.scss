@@ -15,8 +15,8 @@
 
 .headerGrid {
   display: grid;
-  grid-template-areas: "mainExpensesCost monthlyExpensesCost topExpensesCategories averageExpensesCost"
-                      "mainExpensesCost highestExpenseCost topExpensesCategories averageExpensesCost";
+  grid-template-areas: "mainExpensesCost monthlyExpensesCost highestExpenseCost topExpensesCategories"
+                      "timeLineExpensesTracker timeLineExpensesTracker timeLineExpensesTracker topExpensesCategories";
   gap: var(--spacing-sm);
   & > div {
     background-color: green;
@@ -31,8 +31,8 @@
   .topExpensesCategories{
     grid-area: topExpensesCategories;
   }
-  .averageExpensesCost{
-    grid-area: averageExpensesCost;
+  .timeLineExpensesTracker{
+    grid-area: timeLineExpensesTracker;
   }
   .highestExpenseCost{
     grid-area: highestExpenseCost;
