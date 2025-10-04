@@ -2,7 +2,6 @@
   padding: var(--spacing-lg) var(--spacing-lg) 0 var(--spacing-lg);
   box-sizing: border-box;
   height: 100vh;
-  // width: 100vw;
 }
 
 .mainGridLayout {
@@ -11,46 +10,7 @@
   gap:var(--spacing-md);
   height: 100%;
   width: 100%;
-  border: 2px solid var(--border);
   border-radius: var(--border-radius-sm);
 }
 
-.headerGrid, .expensesGrid{
-  height: 100%;
-}
 
-.headerGrid {
-  display: grid;
-  grid-template-areas: "mainExpensesCost monthlyExpensesCost highestExpenseCost topExpensesCategories"
-                      "timeLineExpensesTracker timeLineExpensesTracker timeLineExpensesTracker topExpensesCategories";
-  gap: var(--spacing-sm);
-  & > div {
-    background-color: green;
-  }
-
-  .mainExpensesCost{
-    grid-area: mainExpensesCost;
-  }
-  .monthlyExpensesCost{
-    grid-area: monthlyExpensesCost;
-  }
-  .topExpensesCategories{
-    grid-area: topExpensesCategories;
-  }
-  .timeLineExpensesTracker{
-    grid-area: timeLineExpensesTracker;
-  }
-  .highestExpenseCost{
-    grid-area: highestExpenseCost;
-  }
-}
-
-.expensesGrid{
-  display: grid;
-  gap:var(--spacing-sm);
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-
-  & > div{
-    background-color: yellow;
-  }
-}
