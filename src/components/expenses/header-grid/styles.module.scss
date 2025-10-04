@@ -1,0 +1,30 @@
+.headerGridComponent {
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    "mainExpensesCost monthlyExpensesCost highestExpenseCost topExpensesCategories"
+    "timeLineExpensesTracker timeLineExpensesTracker timeLineExpensesTracker topExpensesCategories";
+  grid-template-rows: 120px 1fr;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+  & > div {
+    background-color: var(--bg-light);
+    border-radius: var(--border-radius-sm);
+  }
+
+  .mainExpensesCost {
+    grid-area: mainExpensesCost;
+  }
+  .monthlyExpensesCost {
+    grid-area: monthlyExpensesCost;
+  }
+  .topExpensesCategories {
+    grid-area: topExpensesCategories;
+  }
+  .timeLineExpensesTracker {
+    grid-area: timeLineExpensesTracker;
+  }
+  .highestExpenseCost {
+    grid-area: highestExpenseCost;
+  }
+}
