@@ -34,8 +34,37 @@ export function Label({ label }: TLabel) {
   );
 }
 
+type TList = {
+  // TODO: TYPE THIS CORRECTLY LATER
+  expenses: any[];
+  label?: string;
+};
+
+export function List({ expenses, label }: TList) {
+  return (
+    <div className={styles.expenseCardList}>
+      {label && <span className={styles.expenseCardListLabel}>{label}</span>}
+      {expenses.map((expense) => (
+        <div className={styles.expense}>
+          <div className={styles.expenseContent}>
+            <span>{expense.label}</span>
+            <span>$ {expense.value}</span>
+          </div>
+          <Divider />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function Divider() {
+  return <div className={styles.expenseCardDivider} />;
+}
+
 export default {
   Card,
   Value,
   Label,
+  List,
+  Divider,
 };

@@ -2,8 +2,8 @@
   height: 100%;
   display: grid;
   grid-template-areas:
-    "mainExpensesCost monthlyExpensesCost highestExpenseCost topExpensesCategories"
-    "timeLineExpensesTracker timeLineExpensesTracker timeLineExpensesTracker topExpensesCategories";
+    "mainExpensesCost monthlyExpensesCost highestExpenseCost averageExpensesCost"
+    "mainExpensesCost timeLineExpensesTracker timeLineExpensesTracker timeLineExpensesTracker";
   grid-template-rows: 120px 1fr;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-sm);
@@ -18,8 +18,8 @@
   .monthlyExpensesCost {
     grid-area: monthlyExpensesCost;
   }
-  .topExpensesCategories {
-    grid-area: topExpensesCategories;
+  .averageExpensesCost {
+    grid-area: averageExpensesCost;
   }
   .timeLineExpensesTracker {
     grid-area: timeLineExpensesTracker;
