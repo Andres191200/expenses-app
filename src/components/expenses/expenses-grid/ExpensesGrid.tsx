@@ -1,16 +1,29 @@
 "use client";
 import React from "react";
-import styles from './styles.module.scss';
+import styles from "./styles.module.scss";
+import Image from "next/image";
+import Button, { EVariant } from "@/components/shared/button/Button";
 
 export default function ExpensesGrid() {
+  const expenses: any[] = [];
   return (
     <div className={styles.expensesGridComponent}>
-      <div className={styles.expenseCard} />
-      <div className={styles.expenseCard} />
-      <div className={styles.expenseCard} />
-      <div className={styles.expenseCard} />
-      <div className={styles.expenseCard} />
-      <div className={styles.expenseCard} />
+      {expenses.length === 0 ? (
+        <div className={styles.emptyExpenses}>
+          <div className={styles.emptyExpensesMessage}>
+            <Image
+              src={"/icons/info.svg"}
+              height={30}
+              width={30}
+              alt="info icon"
+            />
+            <p>There is no expenses yet</p>
+          </div>
+          <Button label="Create one" onClick={() => console.log('open expense creation modal')} variant={EVariant.primary}/>
+        </div>
+      ) : (
+        expenses.map((expense) => <div className={styles.expenseCard} />)
+      )}
     </div>
   );
 }
