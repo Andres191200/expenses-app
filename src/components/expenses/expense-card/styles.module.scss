@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: center;
   gap: var(--spacing-sm);
   box-sizing: border-box;
   padding: var(--spacing-sm);
@@ -14,4 +13,15 @@
     color: var(--text-muted);
     font-size: 16px;
   }
+}
+
+.expensesList{
+  display: flex;
+  gap:var(--spacing-sm)
+}
+
+.expenseCardDivider{
+    height: 1px;
+    width: 100%;
+    background-color: var(--text-muted);
 }
