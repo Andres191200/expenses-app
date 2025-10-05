@@ -36,8 +36,7 @@ export default function HeaderGrid() {
         <ExpenseCard.Card>
           <ExpenseCard.Label label="Total" />
           <ExpenseCard.Value value="$ 242.350,32" />
-          <ExpenseCard.Divider />
-          <ExpenseCard.List expenses={testExpenses} />
+          <ExpenseCard.List expenses={testExpenses} label="Last expenses"/>
         </ExpenseCard.Card>
       </div>
       <div className={styles.monthlyExpensesCost}>

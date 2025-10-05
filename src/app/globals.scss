@@ -3,6 +3,7 @@
     --bg-dark: oklch(0.1 0.07 294);
     --bg: oklch(0.15 0.07 294);
     --bg-light: oklch(0.2 0.07 294);
+    --bg-light-border: oklch(33.258% 0.07977 295.79);
     --text: oklch(0.96 0.1 294);
     --text-muted: oklch(0.76 0.1 294);
     --highlight: oklch(0.5 0.14 294);
@@ -15,6 +16,7 @@
     --success: oklch(0.7 0.14 160);
     --info: oklch(0.7 0.14 260);
 
+    --spacing-tiny: .5rem;
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 3rem;
