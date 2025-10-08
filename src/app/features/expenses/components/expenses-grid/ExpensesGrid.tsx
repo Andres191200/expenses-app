@@ -2,10 +2,11 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
-import Button, { EVariant } from "@/components/shared/button/Button";
+import Button, { EVariant } from "@/components/button/Button";
+import { TExpense } from "../../models/expense";
 
 export default function ExpensesGrid() {
-  const expenses: any[] = [];
+  const expenses: TExpense[] = [];
   return (
     <div className={styles.expensesGridComponent}>
       {expenses.length === 0 ? (
@@ -22,7 +23,7 @@ export default function ExpensesGrid() {
           <Button label="Create one" onClick={() => console.log('open expense creation modal')} variant={EVariant.primary}/>
         </div>
       ) : (
-        expenses.map((expense) => <div className={styles.expenseCard} />)
+        expenses.map((expense) => <div className={styles.expenseCard} key={expense.id}/>)
       )}
     </div>
   );

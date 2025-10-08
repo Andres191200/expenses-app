@@ -1,6 +1,7 @@
 "use client";
 import React, { JSX } from "react";
 import styles from "./styles.module.scss";
+import { TExpense } from "../../models/expense";
 
 type TCard = {
   children: JSX.Element | JSX.Element[];
@@ -36,7 +37,7 @@ export function Label({ label }: TLabel) {
 
 type TList = {
   // TODO: TYPE THIS CORRECTLY LATER
-  expenses: any[];
+  expenses: TExpense[];
   label?: string;
 };
 
@@ -45,9 +46,9 @@ export function List({ expenses, label }: TList) {
     <div className={styles.expenseCardList}>
       {label && <span className={styles.expenseCardListLabel}>{label}</span>}
       {expenses.map((expense) => (
-        <div className={styles.expense}>
+        <div className={styles.expense} key={expense.id}>
           <div className={styles.expenseContent}>
-            <span>{expense.label}</span>
+            <span>{expense.title}</span>
             <span>$ {expense.value}</span>
           </div>
           <Divider />

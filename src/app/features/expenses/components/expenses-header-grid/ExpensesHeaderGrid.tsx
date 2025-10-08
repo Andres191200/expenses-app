@@ -1,31 +1,34 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import styles from "./styles.module.scss";
-import ExpenseCard from "../expense-card/ExpenseCard";
+import ExpenseCard from "@/app/features/expenses/components/expense-card/ExpenseCard";
+import { ExpensesContext } from "../expenses-root/ExpensesRoot";
 
-export default function HeaderGrid() {
+export default function ExpensesHeaderGrid() {
+  const {expenses} = use(ExpensesContext)!;
+  console.log('value from expensesheadergrid:', expenses);
   const testExpenses = [
     {
       id: 1,
-      label: 'Pizza',
+      title: 'Pizza',
       value: 15000,
       category: 'Food'
     },
     {
       id: 2,
-      label: 'Party',
+      title: 'Party',
       value: 11000,
       category: 'Entertainment'
     },
     {
       id: 3,
-      label: 'Groceries',
+      title: 'Groceries',
       value: 8000,
       category: 'House'
     },
         {
       id: 4,
-      label: 'Gambling',
+      title: 'Gambling',
       value: 6000,
       category: 'Entertainment'
     },
