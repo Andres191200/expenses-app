@@ -32,7 +32,6 @@ export default function ExpensesGrid() {
           {expenses.map((expense) => (
             <ExpenseCard label={expense.title} key={expense.id} />
           ))}
-            <ExpenseCard label="a" />
         </div>
 
       )}
