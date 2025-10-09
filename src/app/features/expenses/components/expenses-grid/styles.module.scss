@@ -2,8 +2,15 @@
   height: 100%;
   width: 100%;
   display: grid;
+  background-color: green;
   gap: var(--spacing-sm);
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.expensesMainGrid{
+  background-color: red;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: repeat(2, 200px);
+  width: 100%;
 }
 
 .expenseCard {
@@ -14,6 +21,7 @@
 .emptyExpenses {
   display: flex;
   flex-direction: column;
+  gap:var(--spacing-sm);
   align-items: center;
   justify-content: center;
   width: 100%;

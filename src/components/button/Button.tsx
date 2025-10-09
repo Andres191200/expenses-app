@@ -1,5 +1,7 @@
-import React from 'react';
+"use client";
+import React, { use } from 'react';
 import styles from './styles.module.scss';
+import { ExpensesContext } from '@/app/features/expenses/components/expenses-root/ExpensesRoot';
 
 export enum EVariant {
     primary,
@@ -26,6 +28,8 @@ function getVariant(variant: EVariant):string {
 
 
 export default function Button({ label, variant, onClick, ...rest}: TButton) {
+    const {expenses} = use(ExpensesContext)!;
+  console.log('expenses from button: ', expenses);
   return (
     <div className={styles.buttonComponent}>
         <button onClick={onClick} className={getVariant(variant)} {...rest} >{label}</button>
