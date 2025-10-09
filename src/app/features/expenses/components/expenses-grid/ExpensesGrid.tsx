@@ -30,13 +30,11 @@ export default function ExpensesGrid() {
       ) : (
         <div className={styles.expensesMainGrid}>
           {expenses.map((expense) => (
-            <div className={styles.expenseCard} key={expense.id}>
-              <ExpenseCard label={expense.title} />
-            </div>
+            <ExpenseCard label={expense.title} key={expense.id} />
           ))}
-              <ExpenseCard label="test" />
-
+            <ExpenseCard label="a" />
         </div>
+
       )}
     </div>
   );

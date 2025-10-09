@@ -1,21 +1,15 @@
 .expensesGridComponent {
   height: 100%;
   width: 100%;
-  display: grid;
-  background-color: green;
   gap: var(--spacing-sm);
 }
 
 .expensesMainGrid{
-  background-color: red;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-template-rows: repeat(2, 200px);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fill, 300px);
   width: 100%;
-}
-
-.expenseCard {
-  background-color: var(--bg-light);
-  border-radius: var(--border-radius-sm);
+  gap:var(--spacing-sm);
 }
 
 .emptyExpenses {

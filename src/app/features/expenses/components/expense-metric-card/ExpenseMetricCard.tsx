@@ -8,7 +8,7 @@ type TCard = {
 };
 
 export function Card({ children }: TCard) {
-  return <div className={styles.expenseCardComponent}>{children}</div>;
+  return <div className={styles.expenseMetricCardComponent}>{children}</div>;
 }
 
 type TValue = {
