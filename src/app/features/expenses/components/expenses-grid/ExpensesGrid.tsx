@@ -1,12 +1,13 @@
 "use client";
-import React from "react";
+import React, { use } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import Button, { EVariant } from "@/components/button/Button";
-import { TExpense } from "../../models/expense";
+import { ExpensesContext } from "../expenses-root/ExpensesRoot";
+import ExpenseCard from "../expense-card/ExpenseCard";
 
 export default function ExpensesGrid() {
-  const expenses: TExpense[] = [];
+  const { expenses } = use(ExpensesContext)!;
   return (
     <div className={styles.expensesGridComponent}>
       {expenses.length === 0 ? (
@@ -20,10 +21,19 @@ export default function ExpensesGrid() {
             />
             <p>There is no expenses yet</p>
           </div>
-          <Button label="Create one" onClick={() => console.log('open expense creation modal')} variant={EVariant.primary}/>
+          <Button
+            label="Create one"
+            onClick={() => console.log("open expense creation modal")}
+            variant={EVariant.primary}
+          />
         </div>
       ) : (
-        expenses.map((expense) => <div className={styles.expenseCard} key={expense.id}/>)
+        <div className={styles.expensesMainGrid}>
+          {expenses.map((expense) => (
+            <ExpenseCard label={expense.title} key={expense.id} />
+          ))}
+        </div>
+
       )}
     </div>
   );
