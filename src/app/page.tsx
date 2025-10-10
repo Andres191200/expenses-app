@@ -41,7 +41,7 @@ export default async function Home() {
       <section className={styles.mainGridLayout}>
         <ExpensesRoot value={expenses}>
           <ExpensesHeaderGrid />
-          <ExpensesTable columns={columns} data={expenses}/>
+          <ExpensesTable<TExpense> columns={columns} data={expenses}/>
         </ExpensesRoot>
       </section>
     </div>

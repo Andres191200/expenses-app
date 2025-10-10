@@ -12,7 +12,7 @@ type TColumn<T> = {
 
 type TExpensesTableProps<T> = {
   columns: TColumn<T>[],
-  data: T,
+  data: T[],
 }
 
 export default function ExpensesTable<T extends Record<string, any>>({
