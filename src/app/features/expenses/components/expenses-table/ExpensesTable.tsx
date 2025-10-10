@@ -6,10 +6,10 @@ import Button, { EVariant } from "@/components/button/Button";
 import { ExpensesContext } from "../expenses-root/ExpensesRoot";
 import ExpenseCard from "../expense-card/ExpenseCard";
 
-export default function ExpensesGrid() {
+export default function ExpensesTable() {
   const { expenses } = use(ExpensesContext)!;
   return (
-    <div className={styles.expensesGridComponent}>
+    <div className={styles.expensesTableComponent}>
       {expenses.length === 0 ? (
         <div className={styles.emptyExpenses}>
           <div className={styles.emptyExpensesMessage}>
