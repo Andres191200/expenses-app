@@ -1,15 +1,7 @@
-.expensesGridComponent {
+.expensesTableComponent {
   height: 100%;
   width: 100%;
   gap: var(--spacing-sm);
-}
-
-.expensesMainGrid{
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-template-rows: repeat(auto-fill, 300px);
-  width: 100%;
-  gap:var(--spacing-sm);
 }
 
 .emptyExpenses {
