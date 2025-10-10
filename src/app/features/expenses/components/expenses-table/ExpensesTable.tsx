@@ -29,6 +29,29 @@ export default function ExpensesTable<T extends Record<string, any>>({
             ))}
           </tr>
         </thead>
+        <tbody>
+          {expenses.map((expense) => (
+            <tr key={expense.id}>
+              {columns.map((column) => (
+                <td key={column.key}>test dummy data</td>
+              ))}
+            </tr>
+          ))}
+                    {expenses.map((expense) => (
+            <tr key={expense.id}>
+              {columns.map((column) => (
+                <td key={column.key}>test dummy data</td>
+              ))}
+            </tr>
+          ))}
+                    {expenses.map((expense) => (
+            <tr key={expense.id}>
+              {columns.map((column) => (
+                <td key={column.key}>test dummy data</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
