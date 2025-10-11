@@ -16,6 +16,9 @@
         background-color: var(--bg-light);
         height: 40px;
         vertical-align: middle;
+        text-align: left;
+        padding-inline: var(--spacing-sm);
+        font-weight: 600;
 
         &:first-child {
           border-top-left-radius: var(--border-radius-sm);
@@ -23,15 +26,14 @@
         &:last-child {
           border-top-right-radius: var(--border-radius-sm);
         }
-
       }
     }
   }
-          td{
-          padding:var(--spacing-sm);
-          border:1px solid red;
-        }
-
+  td {
+    padding: var(--spacing-sm);
+    border: 1px solid red;
+    text-align: left;
+  }
 }
 
 .emptyExpenses {
