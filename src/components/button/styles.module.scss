@@ -1,11 +1,11 @@
 .buttonComponent {
-  height: 55px;
-  width: 150px;
+  width: max-content;
 
   button {
     width: 100%;
     height: 100%;
     background-color: var(--primary);
+    padding: var(--spacing-sm);
     color: var(--primary-text);
     border-radius: var(--border-radius-sm);
     border: none;
@@ -14,6 +14,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: filter 250ms ease;
+    font-size: var(--font-md);
 
     &:hover{
       filter:brightness(1.2);
