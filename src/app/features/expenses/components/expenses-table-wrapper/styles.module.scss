@@ -1,0 +1,12 @@
+.expensesTableWrapperComponent{
+    display: flex;
+    flex-direction: column;
+    gap:var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--bg);  
+    height: 100%;
+    padding:var(--spacing-md);
+}
+
+.addNewExpense{
+}

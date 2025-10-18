@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 
 async function createTestExpense() {
   "use server";
@@ -10,6 +11,7 @@ async function createTestExpense() {
       value: 500,
     },
   });
+  revalidatePath("/");
 }
 
 export { createTestExpense };

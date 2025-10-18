@@ -10,7 +10,7 @@ export enum EVariant {
 
 type TButton = {
   label: string;
-  variant: EVariant;
+  variant?: EVariant;
   onClick: () => void;
 } & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onClick">;
 
@@ -21,8 +21,6 @@ function getVariant(variant: EVariant):string {
             return 'primary';
         case EVariant.secondary:
             return 'secondary';
-        default:
-            return 'primary';
     }
 }
 
@@ -32,7 +30,7 @@ export default function Button({ label, variant, onClick, ...rest}: TButton) {
   console.log('expenses from button: ', expenses);
   return (
     <div className={styles.buttonComponent}>
-        <button onClick={onClick} className={getVariant(variant)} {...rest} >{label}</button>
+        <button onClick={onClick} className={getVariant(variant || EVariant.primary)} {...rest} >{label}</button>
     </div>
   )
 }

@@ -8,7 +8,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-sm);
   & > div {
-    background-color: var(--bg-light);
+    background-color: var(--bg);
     border-radius: var(--border-radius-sm);
   }
 
