@@ -1,5 +1,5 @@
 .buttonComponent {
-  height: 44px;
+  height: 55px;
   width: 150px;
 
   button {
@@ -13,6 +13,11 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 600;
     cursor: pointer;
+    transition: filter 250ms ease;
+
+    &:hover{
+      filter:brightness(1.2);
+    }
 
     &:disabled{
         background-color: var(--bg-light);
