@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Table from "@/components/table/Table";
 import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
-import Button, { EVariant } from "@/components/button/Button";
+import Button from "@/components/button/Button";
 import { createTestExpense } from "@/actions/actions";
 
 type ExpensesTableWrapperProps = {
@@ -13,12 +13,15 @@ type ExpensesTableWrapperProps = {
 export default function ExpensesTableWrapper({
   expenses,
 }: ExpensesTableWrapperProps) {
+  const [isAddingExpense, setIsAddingExpense] = useState(false);
   const columns = [
     {
       key: "name",
       label: "Name",
       canSort: true,
-      render: (expense: TExpense) => <p>{expense.title}</p>,
+      render: (expense: TExpense) => (
+        <p>{expense.id ? expense.title : "render input here"}</p>
+      ),
     },
     {
       key: "category",
@@ -42,7 +45,7 @@ export default function ExpensesTableWrapper({
       key: "actions",
       label: "Actions",
       canSort: false,
-      render: (expense: TExpense) => <p>{expense.id}</p>,
+      render: (expense: TExpense) => <button onClick={() => setIsAddingExpense(false)}>cancel</button>,
     },
   ];
 
@@ -52,10 +55,17 @@ export default function ExpensesTableWrapper({
         <Button
           label="Add new expense"
           type="button"
-          onClick={() => createTestExpense()}
+          onClick={() => {
+            setIsAddingExpense(true);
+          }}
         />
       </div>
-      <Table<TExpense> columns={columns} data={expenses} />;
+      <Table<TExpense>
+        isAddingEntry={isAddingExpense}
+        columns={columns}
+        data={expenses}
+      />
+      ;
     </div>
   );
 }

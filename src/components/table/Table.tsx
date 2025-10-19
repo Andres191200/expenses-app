@@ -15,11 +15,13 @@ type TColumn<T> = {
 type TTableProps<T> = {
   columns: TColumn<T>[];
   data: T[];
+  isAddingEntry: boolean;
 };
 
 export default function Table<T extends Record<string, any>>({
   columns,
   data,
+  isAddingEntry,
 }: TTableProps<T>) {
   return (
     <div className={styles.tableComponent}>
@@ -32,40 +34,43 @@ export default function Table<T extends Record<string, any>>({
           </tr>
         </thead>
         <tbody>
-          {
-            data.length > 0 ? (
-              data.map((item, rowIndex) => (
-                <tr key={rowIndex}>
-                  {columns.map((column) => (
-                    <td key={column.key}>
-                      {column.render(item)}
-                    </td>
-                  ))}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={columns.length}>
-                  <div className={styles.emptyExpenses}>
-                    <div className={styles.emptyExpensesMessage}>
-                      <Image
-                        src={"/icons/info.svg"}
-                        height={30}
-                        width={30}
-                        alt="info icon"
-                      />
-                      <p>There is no expenses yet</p>
-                    </div>
-                    <Button
-                      label="Create one"
-                      onClick={() => console.log("open expense creation modal")}
-                      variant={EVariant.primary}
-                    />
-                  </div>
-                </td>
+          {data.length > 0 ? (
+            data.map((item, rowIndex) => (
+              <tr key={rowIndex}>
+                {columns.map((column) => (
+                  <td key={column.key}>{column.render(item)}</td>
+                ))}
               </tr>
-            )
-          }
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length}>
+                <div className={styles.emptyExpenses}>
+                  <div className={styles.emptyExpensesMessage}>
+                    <Image
+                      src={"/icons/info.svg"}
+                      height={30}
+                      width={30}
+                      alt="info icon"
+                    />
+                    <p>There is no expenses yet</p>
+                  </div>
+                  <Button
+                    label="Create one"
+                    onClick={() => console.log("open expense creation modal")}
+                    variant={EVariant.primary}
+                  />
+                </div>
+              </td>
+            </tr>
+          )}
+          {isAddingEntry ? (
+            <tr key={"new-expense"}>
+              <td key={"new-expense-entry"}>
+                <input type="text" placeholder="new exp" />
+              </td>
+            </tr>
+          ) : null}
         </tbody>
       </table>
     </div>
