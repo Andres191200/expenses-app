@@ -4,7 +4,7 @@ import Table from "@/components/table/Table";
 import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
 import Button from "@/components/button/Button";
-import { createTestExpense } from "@/actions/actions";
+import { createExpense, createTestExpense } from "@/actions/actions";
 
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
@@ -65,6 +65,7 @@ export default function ExpensesTableWrapper({
         cancelEntryAdding={() => setIsAddingExpense(false)}
         columns={columns}
         data={expenses}
+        createEntry={(expense:TExpense) => createExpense(expense)}
       />
     </div>
   );
