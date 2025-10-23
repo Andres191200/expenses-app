@@ -65,7 +65,6 @@ export default function ExpensesTableWrapper({
         columns={columns}
         data={expenses}
       />
-      ;
     </div>
   );
 }

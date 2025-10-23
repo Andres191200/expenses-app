@@ -58,3 +58,8 @@
   align-items: center;
   gap: var(--spacing-tiny);
 }
+
+.actionsRow{
+  display: flex;
+  gap:var(--spacing-sm);
+}
