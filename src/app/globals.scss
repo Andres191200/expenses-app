@@ -9,13 +9,26 @@
     --highlight: oklch(0.5 0.14 294);
     --border: oklch(0.4 0.14 294);
     --border-muted: oklch(0.3 0.14 294);
+
     --primary: oklch(0.76 0.14 294);
     --primary-text: oklch(24.703% 0.15168 278.054);
-    --secondary: oklch(0.76 0.14 114);
-    --danger: oklch(0.7 0.14 30);
+
+    --secondary: hsl(66, 46%, 50%);
+    --secondary-text: hsl(66, 46%, 15%);
+    
+    
+    --danger: hsl(8, 73%, 66%);
+    --danger-text: hsl(8, 73%, 15%);
+
     --warning: oklch(0.7 0.14 100);
+    --warning-text: hsl(52, 76%, 15%);
+
+    
     --success: oklch(0.7 0.14 160);
-    --info: oklch(0.7 0.14 260);
+    --success-text: hsl(154, 53%, 15%);
+
+    --info: hsl(217, 88%, 69%);
+    --info-text: hsl(217, 88%, 15%);
 
     --spacing-tiny: .5rem;
     --spacing-sm: 1rem;
@@ -30,6 +43,13 @@
     --font-md: 16px;
     --font-lg: 22px;
 
+}
+
+input{
+    background-color: var(--bg-light);
+    border: none;
+    padding:var(--spacing-tiny);
+    border-radius: var(--border-radius-sm);
 }
 
 html, body, div, span, applet, object, iframe,

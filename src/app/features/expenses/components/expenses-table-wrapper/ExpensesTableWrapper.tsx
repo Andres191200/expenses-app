@@ -62,10 +62,10 @@ export default function ExpensesTableWrapper({
       </div>
       <Table<TExpense>
         isAddingEntry={isAddingExpense}
+        cancelEntryAdding={() => setIsAddingExpense(false)}
         columns={columns}
         data={expenses}
       />
-      ;
     </div>
   );
 }

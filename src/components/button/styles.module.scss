@@ -2,28 +2,77 @@
   width: max-content;
 
   button {
+    display: inline;
     width: 100%;
     height: 100%;
-    background-color: var(--primary);
     padding: var(--spacing-sm);
     color: var(--primary-text);
     border-radius: var(--border-radius-sm);
     border: none;
     outline: none;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
     font-weight: 600;
     cursor: pointer;
     transition: filter 250ms ease;
     font-size: var(--font-md);
 
-    &:hover{
-      filter:brightness(1.2);
+    &:hover {
+      filter: brightness(1.2);
     }
 
-    &:disabled{
-        background-color: var(--bg-light);
-        color: var(--bg-light-border);
-        cursor: not-allowed;
+    &:disabled {
+      background-color: var(--bg-light);
+      color: var(--bg-light-border);
+      cursor: not-allowed;
+    }
+
+    &.small{
+      padding:var(--spacing-tiny) var(--spacing-sm);
+      font-size:var(--font-sm);
+    }
+
+    // THEMES
+
+    &.primary {
+      &.default {
+        background-color: var(--primary);
+      }
+      &.danger {
+        background-color: var(--danger);
+        color:var(--danger-text);
+      }
+      &.success {
+        background-color: var(--success);
+        color:var(--success-text);
+      }
+      &.warning {
+        background-color: var(--warning); 
+        color:var(--warning-text);
+      }
+      &.info {
+        background-color: var(--info);
+        color:var(--info-text);
+      }
+    }
+
+    //TODO: DO SECONDARY VARIANT
+    &.secondary {
+      &.default {
+        background-color: var(--primary);
+      }
+      &.danger {
+        background-color: var(--danger);
+      }
+      &.success {
+        background-color: var(--success);
+      }
+      &.warning {
+        background-color: var(--warning);
+      }
+      &.info {
+        background-color: var(--info);
+      }
     }
   }
 }
