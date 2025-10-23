@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import Button, { ETheme, EVariant } from "../button/Button";
+import { createExpense } from "@/actions/actions";
 
 type TColumn<T> = {
   key: string;
@@ -16,13 +17,19 @@ type TTableProps<T> = {
   columns: TColumn<T>[];
   data: T[];
   isAddingEntry: boolean;
+  cancelEntryAdding: () => void;
+  createEntry: (entry:T) => void;
 };
 
 export default function Table<T extends Record<string, any>>({
   columns,
   data,
   isAddingEntry,
+  cancelEntryAdding,
+  createEntry
 }: TTableProps<T>) {
+  const [newEntry, setNewEntry] = useState<T | null>(null);
+  
   return (
     <div className={styles.tableComponent}>
       <table>
@@ -80,8 +87,18 @@ export default function Table<T extends Record<string, any>>({
               </td>
               <td>
                 <div className={styles.actionsRow}>
-                  <Button label="Cancel" onClick={() => console.log('do cancel')} theme={ETheme.danger} small/>
-                <Button label="Save" onClick={() => console.log('do save')} theme={ETheme.success} small/>
+                  <Button
+                    label="Cancel"
+                    onClick={() => cancelEntryAdding()}
+                    theme={ETheme.danger}
+                    small
+                  />
+                  <Button
+                    label="Save"
+                    onClick={() => createEntry(newEntry!)}
+                    theme={ETheme.success}
+                    small
+                  />
                 </div>
               </td>
             </tr>

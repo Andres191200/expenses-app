@@ -28,7 +28,7 @@
     }
 
     &.small{
-      padding:var(--spacing-tiny);
+      padding:var(--spacing-tiny) var(--spacing-sm);
       font-size:var(--font-sm);
     }
 
