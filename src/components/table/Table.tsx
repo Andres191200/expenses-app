@@ -21,6 +21,7 @@ type TTableProps<T> = {
   createEntry: (entry:T) => void;
 };
 
+
 export default function Table<T extends Record<string, any>>({
   columns,
   data,
@@ -28,7 +29,15 @@ export default function Table<T extends Record<string, any>>({
   cancelEntryAdding,
   createEntry
 }: TTableProps<T>) {
-  const [newEntry, setNewEntry] = useState<T | null>(null);
+  const [newEntry, setNewEntry] = useState<Partial<T>>({});
+
+  function handleChange<K extends keyof T>(key: K, value: T[K]){
+    setNewEntry((prevState) => ({
+      ...prevState,
+      [key]: value
+    }));
+}
+
   
   return (
     <div className={styles.tableComponent}>
@@ -74,7 +83,8 @@ export default function Table<T extends Record<string, any>>({
           {isAddingEntry ? (
             <tr key={"new-expense"}>
               <td>
-                <input type="text" placeholder="new exp" />
+                {/* THINK MAKE THIS INPUT MORE GENERIC */}
+                <input type="text" placeholder="new exp" value={newEntry?.title as string ?? ""} onChange={(e) => handleChange("title", e.target.value as T["title"])}/>
               </td>
               <td>
                 <input type="text" placeholder="cateogry dropdown here" />
