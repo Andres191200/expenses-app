@@ -4,7 +4,7 @@ import Table from "@/components/table/Table";
 import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
 import Button from "@/components/button/Button";
-import { createTestExpense } from "@/actions/actions";
+import { createExpense, createTestExpense } from "@/actions/actions";
 
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
@@ -14,6 +14,15 @@ export default function ExpensesTableWrapper({
   expenses,
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
+
+  async function _createExpense(expense:TExpense):Promise<void>{
+    await createExpense(expense);
+    // OPTIMISTIC UI?
+    
+    // NOT WORKING THIS SETSTATE
+    setIsAddingExpense(false);
+  }
+  
   const columns = [
     {
       key: "name",
@@ -65,6 +74,7 @@ export default function ExpensesTableWrapper({
         cancelEntryAdding={() => setIsAddingExpense(false)}
         columns={columns}
         data={expenses}
+        createEntry={(expense:TExpense) => createExpense(expense)}
       />
     </div>
   );

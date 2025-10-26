@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import Button, { ETheme, EVariant } from "../button/Button";
-import { createExpense } from "@/actions/actions";
 
 type TColumn<T> = {
   key: string;
@@ -18,7 +17,7 @@ type TTableProps<T> = {
   data: T[];
   isAddingEntry: boolean;
   cancelEntryAdding: () => void;
-  createEntry: (entry:T) => void;
+  createEntry: (entry: T) => void;
 };
 
 export default function Table<T extends Record<string, any>>({
@@ -26,10 +25,17 @@ export default function Table<T extends Record<string, any>>({
   data,
   isAddingEntry,
   cancelEntryAdding,
-  createEntry
+  createEntry,
 }: TTableProps<T>) {
-  const [newEntry, setNewEntry] = useState<T | null>(null);
-  
+  const [newEntry, setNewEntry] = useState<Partial<T>>({});
+
+  function handleChange<K extends keyof T>(key: K, value: T[K]): void {
+    setNewEntry((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+  }
+
   return (
     <div className={styles.tableComponent}>
       <table>
@@ -74,13 +80,35 @@ export default function Table<T extends Record<string, any>>({
           {isAddingEntry ? (
             <tr key={"new-expense"}>
               <td>
-                <input type="text" placeholder="new exp" />
+                {/* THINK MAKE THIS INPUT MORE GENERIC */}
+                <input
+                  type="text"
+                  placeholder="new exp"
+                  value={(newEntry?.title as string) ?? ""}
+                  onChange={(e) =>
+                    handleChange("title", e.target.value as T["title"])
+                  }
+                />
               </td>
               <td>
-                <input type="text" placeholder="cateogry dropdown here" />
+                <input
+                  type="text"
+                  placeholder="cateogry dropdown here"
+                  value={(newEntry?.category as string) ?? ""}
+                  onChange={(e) =>
+                    handleChange("category", e.target.value as T["category"])
+                  }
+                />
               </td>
               <td>
-                <input type="text" placeholder="value input here" />
+                <input
+                  type="text"
+                  placeholder="value input here"
+                  value={newEntry?.value ?? 0}
+                  onChange={(e) =>
+                    handleChange("value", Number(e.target.value) as T["value"])
+                  }
+                />
               </td>
               <td>
                 <p>{new Date().toISOString()}</p>
@@ -95,7 +123,7 @@ export default function Table<T extends Record<string, any>>({
                   />
                   <Button
                     label="Save"
-                    onClick={() => createEntry(newEntry!)}
+                    onClick={() => createEntry(newEntry! as T)}
                     theme={ETheme.success}
                     small
                   />

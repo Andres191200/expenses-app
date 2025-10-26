@@ -17,13 +17,17 @@ async function createTestExpense() {
 
 async function createExpense(expense: TExpense) {
   "use server";
+
+  // TODO: ZOD SCHEMA VALIDATOR HERE TO AVOID UNNECESSARY DB CALLS!!
+
   await prisma.expense.create({
     data: {
       title: expense.title,
       value: expense.value,
       category: expense.category,
     }
-  })
+  });
+  revalidatePath("/");
 }
 
 export { createTestExpense, createExpense };
