@@ -14,6 +14,15 @@ export default function ExpensesTableWrapper({
   expenses,
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
+
+  async function _createExpense(expense:TExpense):Promise<void>{
+    await createExpense(expense);
+    // OPTIMISTIC UI?
+    
+    // NOT WORKING THIS SETSTATE
+    setIsAddingExpense(false);
+  }
+  
   const columns = [
     {
       key: "name",
