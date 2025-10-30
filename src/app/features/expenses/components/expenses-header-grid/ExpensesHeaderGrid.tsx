@@ -6,7 +6,6 @@ import ExpenseMetricCard from "../expense-metric-card/ExpenseMetricCard";
 
 export default function ExpensesHeaderGrid() {
   const {expenses} = use(ExpensesContext)!;
-  console.log('exp: ', expenses);
   return (
     <div className={styles.headerGridComponent}>
       <div className={styles.mainExpensesCost}>

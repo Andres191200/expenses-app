@@ -1,24 +1,24 @@
 "use server";
 
 import { TExpense } from "@/app/features/expenses/models/expense";
+import expenseSchema from "@/app/features/expenses/schemas/expense";
+import TFetchResponse from "@/app/models/fetch_response";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-async function createTestExpense() {
-  "use server";
-  await prisma.expense.create({
-    data: {
-      title: "expense test",
-      value: 500,
-    },
-  });
-  revalidatePath("/");
-}
 
-async function createExpense(expense: TExpense) {
+async function createExpense(expense: TExpense):Promise<TFetchResponse> {
   "use server";
 
-  // TODO: ZOD SCHEMA VALIDATOR HERE TO AVOID UNNECESSARY DB CALLS!!
+  const parsedData = expenseSchema().safeParse(expense);
+
+  if (!parsedData.success){
+    // ERROR TOAST HERE
+    return {
+      success: false,
+      error: 'Invalid data. Check the fields.',
+    }
+  }
 
   await prisma.expense.create({
     data: {
@@ -28,6 +28,10 @@ async function createExpense(expense: TExpense) {
     }
   });
   revalidatePath("/");
+      return {
+      success: true,
+      error: null,
+    }
 }
 
-export { createTestExpense, createExpense };
+export { createExpense };
