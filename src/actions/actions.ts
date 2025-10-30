@@ -16,9 +16,7 @@ async function createExpense(expense: TExpense):Promise<TFetchResponse> {
     // ERROR TOAST HERE
     return {
       success: false,
-
-      // CONVERT ERROR.ISSUES TO AN RECORD<STRING, STRING> ???
-      error: parsedData.error.issues,
+      error: 'Invalid data. Check the fields.',
     }
   }
 
@@ -32,7 +30,7 @@ async function createExpense(expense: TExpense):Promise<TFetchResponse> {
   revalidatePath("/");
       return {
       success: true,
-      error: {},
+      error: null,
     }
 }
 
