@@ -13,4 +13,23 @@
   border-radius: var(--border-radius-sm);
 }
 
+.skeleton{
+  margin-block:var(--spacing-lg);
+  height: 100vh;
+  animation: skeletonPulsing 1s infinite alternate;
+  div{
+    height: 100%;
+  }
+}
+
+@keyframes skeletonPulsing{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+}
+
+
 

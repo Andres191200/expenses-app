@@ -1,12 +1,13 @@
 import styles from "@/app/styles.module.scss";
-import { prisma } from "@/lib/prisma";
 import { TExpense } from "./features/expenses/models/expense";
 import ExpensesHeaderGrid from "@/app/features/expenses/components/expenses-header-grid/ExpensesHeaderGrid";
 import ExpensesRoot from "./features/expenses/components/expenses-root/ExpensesRoot";
 import ExpensesTableWrapper from "@/app/features/expenses/components/expenses-table-wrapper/ExpensesTableWrapper";
+import getExpenses from "./features/expenses/actions/getExpenses";
+import Loading from "./loading";
 
 export default async function Home() {
-  const expenses: TExpense[] = await prisma.expense.findMany();
+  const expenses: TExpense[] = await getExpenses();
 
   return (
     <div className={styles.homePage}>
