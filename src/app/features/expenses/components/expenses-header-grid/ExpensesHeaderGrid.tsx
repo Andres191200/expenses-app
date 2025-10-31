@@ -1,18 +1,15 @@
 "use client";
-import React, { use } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
-import { ExpensesContext } from "../expenses-root/ExpensesRoot";
 import ExpenseMetricCard from "../expense-metric-card/ExpenseMetricCard";
 
 export default function ExpensesHeaderGrid() {
-  const {expenses} = use(ExpensesContext)!;
   return (
     <div className={styles.headerGridComponent}>
       <div className={styles.mainExpensesCost}>
         <ExpenseMetricCard.Card>
           <ExpenseMetricCard.Label label="Total" />
           <ExpenseMetricCard.Value value="$ 242.350,32" />
-          <ExpenseMetricCard.List expenses={expenses} label="Last expenses"/>
         </ExpenseMetricCard.Card>
       </div>
       <div className={styles.monthlyExpensesCost}>

@@ -12,6 +12,8 @@ async function createExpense(expense: TExpense):Promise<TFetchResponse> {
 
   const parsedData = expenseSchema().safeParse(expense);
 
+  // SEND TO ZUSTAND STORE?
+
   if (!parsedData.success){
     // ERROR TOAST HERE
     return {
