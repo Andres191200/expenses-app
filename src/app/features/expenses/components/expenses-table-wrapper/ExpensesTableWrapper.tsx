@@ -15,11 +15,13 @@ export default function ExpensesTableWrapper({
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
 
-  async function _createExpense(expense:TExpense):Promise<void>{
+  async function _createExpense(expense: TExpense): Promise<void> {
+    //WRAP THIS WITH A HOC TO HANDLE TOAST MESSAGES
     createExpense(expense);
+
     setIsAddingExpense(false);
   }
-  
+
   const columns = [
     {
       key: "name",
@@ -51,7 +53,9 @@ export default function ExpensesTableWrapper({
       key: "actions",
       label: "Actions",
       canSort: false,
-      render: (expense: TExpense) => <button onClick={() => setIsAddingExpense(false)}>cancel</button>,
+      render: (expense: TExpense) => (
+        <button onClick={() => setIsAddingExpense(false)}>cancel</button>
+      ),
     },
   ];
 
@@ -69,9 +73,12 @@ export default function ExpensesTableWrapper({
       <Table<TExpense>
         isAddingEntry={isAddingExpense}
         cancelEntryAdding={() => setIsAddingExpense(false)}
+        addEntry={() => {
+          setIsAddingExpense(true);
+        }}
         columns={columns}
         data={expenses}
-        createEntry={(expense:TExpense) => _createExpense(expense)}
+        createEntry={(expense: TExpense) => _createExpense(expense)}
       />
     </div>
   );

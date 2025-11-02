@@ -18,6 +18,7 @@ type TTableProps<T> = {
   isAddingEntry: boolean;
   cancelEntryAdding: () => void;
   createEntry: (entry: T) => void;
+  addEntry: () => void;
 };
 
 export default function Table<T extends Record<string, any>>({
@@ -26,6 +27,7 @@ export default function Table<T extends Record<string, any>>({
   isAddingEntry,
   cancelEntryAdding,
   createEntry,
+  addEntry,
 }: TTableProps<T>) {
   const [newEntry, setNewEntry] = useState<Partial<T>>({});
 
@@ -47,7 +49,7 @@ export default function Table<T extends Record<string, any>>({
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 ? (
+          {data.length > 0 || isAddingEntry ? (
             data.map((item, rowIndex) => (
               <tr key={rowIndex}>
                 {columns.map((column) => (
@@ -70,7 +72,7 @@ export default function Table<T extends Record<string, any>>({
                   </div>
                   <Button
                     label="Create one"
-                    onClick={() => console.log("open expense creation modal")}
+                    onClick={() => addEntry()}
                     variant={EVariant.primary}
                   />
                 </div>
