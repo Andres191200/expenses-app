@@ -5,21 +5,27 @@ import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
 import Button from "@/components/button/Button";
 import { createExpense } from "@/actions/actions";
+import { withToast } from "@/components/hocs/withToast";
+import toast from "react-hot-toast";
 
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
 };
+
+const createExpenseWithToast = withToast(createExpense, {
+  success: "Expense created successfully",
+});
 
 export default function ExpensesTableWrapper({
   expenses,
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
 
-  async function _createExpense(expense:TExpense):Promise<void>{
-    createExpense(expense);
+  async function _createExpense(expense: TExpense): Promise<void> {
+    await createExpenseWithToast(expense);
     setIsAddingExpense(false);
   }
-  
+
   const columns = [
     {
       key: "name",
@@ -51,7 +57,9 @@ export default function ExpensesTableWrapper({
       key: "actions",
       label: "Actions",
       canSort: false,
-      render: (expense: TExpense) => <button onClick={() => setIsAddingExpense(false)}>cancel</button>,
+      render: (expense: TExpense) => (
+        <button onClick={() => setIsAddingExpense(false)}>cancel</button>
+      ),
     },
   ];
 
@@ -69,9 +77,12 @@ export default function ExpensesTableWrapper({
       <Table<TExpense>
         isAddingEntry={isAddingExpense}
         cancelEntryAdding={() => setIsAddingExpense(false)}
+        addEntry={() => {
+          setIsAddingExpense(true);
+        }}
         columns={columns}
         data={expenses}
-        createEntry={(expense:TExpense) => _createExpense(expense)}
+        createEntry={(expense: TExpense) => _createExpense(expense)}
       />
     </div>
   );

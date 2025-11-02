@@ -6,34 +6,45 @@ import TFetchResponse from "@/app/models/fetch_response";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
-
-async function createExpense(expense: TExpense):Promise<TFetchResponse> {
+async function createExpense(expense: TExpense): Promise<TFetchResponse> {
   "use server";
-
-  const parsedData = expenseSchema().safeParse(expense);
-
-  // SEND TO ZUSTAND STORE?
-
-  if (!parsedData.success){
-    // ERROR TOAST HERE
+  try {
+    expenseSchema().safeParse({...expense, createdAt: new Date(Date.now())});
+  } catch (error) {
+    console.error(error);
     return {
       success: false,
-      error: 'Invalid data. Check the fields.',
+      error: "Invalid data. Check the fields.",
+    };
+  }
+  try {
+    await prisma.expense.create({
+      data: {
+        title: expense.title,
+        value: expense.value,
+        category: expense.category,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error)
+      return {
+        success: false,
+        error: error.toString(),
+      };
+    else {
+      return {
+        success: false,
+        error: "There was an unknown error. Please try again",
+      };
     }
   }
-
-  await prisma.expense.create({
-    data: {
-      title: expense.title,
-      value: expense.value,
-      category: expense.category,
-    }
-  });
   revalidatePath("/");
-      return {
-      success: true,
-      error: null,
-    }
+
+  return {
+    success: true,
+    error: null,
+  };
 }
 
 export { createExpense };
