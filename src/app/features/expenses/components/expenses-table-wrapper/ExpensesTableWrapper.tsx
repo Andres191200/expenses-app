@@ -5,10 +5,16 @@ import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
 import Button from "@/components/button/Button";
 import { createExpense } from "@/actions/actions";
+import { withToast } from "@/components/hocs/withToast";
+import toast from "react-hot-toast";
 
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
 };
+
+const createExpenseWithToast = withToast(createExpense, {
+  success: "Expense created successfully",
+});
 
 export default function ExpensesTableWrapper({
   expenses,
@@ -16,9 +22,7 @@ export default function ExpensesTableWrapper({
   const [isAddingExpense, setIsAddingExpense] = useState(false);
 
   async function _createExpense(expense: TExpense): Promise<void> {
-    //WRAP THIS WITH A HOC TO HANDLE TOAST MESSAGES
-    createExpense(expense);
-
+    await createExpenseWithToast(expense);
     setIsAddingExpense(false);
   }
 

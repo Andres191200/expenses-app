@@ -5,12 +5,14 @@ import ExpensesRoot from "./features/expenses/components/expenses-root/ExpensesR
 import ExpensesTableWrapper from "@/app/features/expenses/components/expenses-table-wrapper/ExpensesTableWrapper";
 import getExpenses from "./features/expenses/actions/getExpenses";
 import Loading from "./loading";
+import { Toaster } from "react-hot-toast";
 
 export default async function Home() {
   const expenses: TExpense[] = await getExpenses();
 
   return (
     <div className={styles.homePage}>
+      <Toaster />
       <section className={styles.mainGridLayout}>
         <ExpensesRoot value={expenses}>
           <ExpensesHeaderGrid />

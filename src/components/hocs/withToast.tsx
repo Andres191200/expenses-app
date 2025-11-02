@@ -1,19 +1,18 @@
-type TFetchResponse = {
-  success: boolean;
-  error: string | null;
-};
+import TFetchResponse from "@/app/models/fetch_response";
+import toast from "react-hot-toast";
 
-export function withToast<TArgs extends any[]>(
-  fn: (...args: TArgs) => Promise<TFetchResponse>,
+export function withToast<T extends unknown[]>(
+  fn: (...args: T) => Promise<TFetchResponse>,
   messages?: { success?: string }
 ) {
-  return async (...args: TArgs) => {
+  return async (...args: T) => {
     const res = await fn(...args);
 
     if (res.error) {
-      showToast(res.error, "error");
-    } else if (res.success && messages?.success) {
-      showToast(messages.success, "success");
+      toast.error(res.error);
+    } else if (res.success) {
+        console.log('success!!');
+      toast.success(messages?.success ?? 'Success!');
     }
 
     return res;
