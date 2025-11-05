@@ -6,7 +6,7 @@ type TExpensesStoreState = {
 }
 
 
-export const useExpensesStore = create<TExpensesStoreState>((set) => ({
+export const expensesStore = create<TExpensesStoreState>((set) => ({
     expenses: [],
     addExpense: (expense: TExpense) => set((state: TExpensesStoreState) => ({
         expenses: [...state.expenses, expense],

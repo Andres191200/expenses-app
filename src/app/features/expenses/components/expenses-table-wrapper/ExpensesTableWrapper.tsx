@@ -6,7 +6,6 @@ import { TExpense } from "../../models/expense";
 import Button from "@/components/button/Button";
 import { createExpense } from "@/actions/actions";
 import { withToast } from "@/components/hocs/withToast";
-import toast from "react-hot-toast";
 
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
@@ -14,6 +13,10 @@ type ExpensesTableWrapperProps = {
 
 const createExpenseWithToast = withToast(createExpense, {
   success: "Expense created successfully",
+}, {
+  onSuccess: () => {
+    console.log('invoke zustand mutation');
+  }
 });
 
 export default function ExpensesTableWrapper({
