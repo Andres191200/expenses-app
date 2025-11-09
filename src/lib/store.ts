@@ -2,18 +2,24 @@ import { TExpense } from "@/app/features/expenses/models/expense";
 import { create } from "zustand";
 
 type TExpensesStoreState = {
-    expenses: TExpense[],
-    addExpense: (expense: TExpense) => void,
-    removeExpense: (id: number) => void,
-}
+  expenses: TExpense[];
+  addExpense: (expense: TExpense) => void;
+  removeExpense: (id: number) => void;
+  getTotalExpensesValue: () => number;
+};
 
-
-export const expensesStore = create<TExpensesStoreState>((set) => ({
-    expenses: [],
-    addExpense: (expense: TExpense) => set((state: TExpensesStoreState) => ({
-        expenses: [...state.expenses, expense],
+export const expensesStore = create<TExpensesStoreState>((set, get) => ({
+  expenses: [],
+  addExpense: (expense: TExpense) =>
+    set((state: TExpensesStoreState) => ({
+      expenses: [...state.expenses, expense],
     })),
-    removeExpense: (id: number) => set((state: TExpensesStoreState) => ({
-        expenses: state.expenses.filter((expense) => expense.id !== id),
+  removeExpense: (id: number) =>
+    set((state: TExpensesStoreState) => ({
+      expenses: state.expenses.filter((expense) => expense.id !== id),
     })),
+  getTotalExpensesValue: () => {
+    const expenses = get().expenses;
+    return expenses.reduce((acc, curr) => acc + curr.value, 0);
+  },
 }));

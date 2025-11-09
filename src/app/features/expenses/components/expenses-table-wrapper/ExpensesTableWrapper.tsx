@@ -22,10 +22,8 @@ export default function ExpensesTableWrapper({
   const createExpenseWithToast = withToast(createExpense, {
   success: "Expense created successfully",
 }, {
-  onSuccess: () => {
-    console.log('invoke zustand mutation');
-
-    // addExpense(expense)
+  onSuccess: (expense) => {
+    addExpense(expense);
   }
 });
 

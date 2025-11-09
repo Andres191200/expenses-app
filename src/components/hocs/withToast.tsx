@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 export function withToast<T extends unknown[]>(
   fn: (...args: T) => Promise<TFetchResponse>,
   messages?: { success?: string, error?: string },
-  actions?: {onSuccess: () => void}
+  actions?: {onSuccess: (...args: T) => void}
 ) {
   return async (...args: T) => {
     const res = await fn(...args);
@@ -13,7 +13,7 @@ export function withToast<T extends unknown[]>(
       toast.error(res.error);
     } else if (res.success) {
         console.log('success!!');
-        actions?.onSuccess();
+        actions?.onSuccess(...args);
       toast.success(messages?.success ?? 'Success!');
     }
 
