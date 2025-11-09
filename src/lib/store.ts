@@ -2,7 +2,9 @@ import { TExpense } from "@/app/features/expenses/models/expense";
 import { create } from "zustand";
 
 type TExpensesStoreState = {
-    expenses: TExpense[];
+    expenses: TExpense[],
+    addExpense: (expense: TExpense) => void,
+    removeExpense: (id: number) => void,
 }
 
 

@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 export function withToast<T extends unknown[]>(
   fn: (...args: T) => Promise<TFetchResponse>,
-  messages?: { success?: string },
+  messages?: { success?: string, error?: string },
   actions?: {onSuccess: () => void}
 ) {
   return async (...args: T) => {

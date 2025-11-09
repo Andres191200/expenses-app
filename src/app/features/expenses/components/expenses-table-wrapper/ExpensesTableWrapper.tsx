@@ -1,33 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Table from "@/components/table/Table";
 import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
 import Button from "@/components/button/Button";
 import { createExpense } from "@/actions/actions";
 import { withToast } from "@/components/hocs/withToast";
+import { expensesStore } from "@/lib/store";
 
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
 };
 
-const createExpenseWithToast = withToast(createExpense, {
-  success: "Expense created successfully",
-}, {
-  onSuccess: () => {
-    console.log('invoke zustand mutation');
-  }
-});
-
 export default function ExpensesTableWrapper({
   expenses,
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
+  const {addExpense} = expensesStore.getState();
+
+
+  const createExpenseWithToast = withToast(createExpense, {
+  success: "Expense created successfully",
+}, {
+  onSuccess: () => {
+    console.log('invoke zustand mutation');
+
+    // addExpense(expense)
+  }
+});
 
   async function _createExpense(expense: TExpense): Promise<void> {
     await createExpenseWithToast(expense);
     setIsAddingExpense(false);
   }
+  
 
   const columns = [
     {
