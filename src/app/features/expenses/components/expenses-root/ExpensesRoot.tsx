@@ -1,7 +1,8 @@
 "use client";
-import React, { createContext } from "react";
+import React, { createContext, useEffect } from "react";
 import { TExpense } from "../../models/expense";
-import styles from './styles.module.scss';
+import styles from "./styles.module.scss";
+import { expensesStore } from "@/lib/store";
 
 type TExpensesRoot = {
   children: React.ReactNode;
@@ -14,9 +15,16 @@ type TExpensesContext = {
 
 export const ExpensesContext = createContext<TExpensesContext | null>(null);
 export default function ExpensesRoot({ children, value }: TExpensesRoot) {
+  const { setInitialExpenses } = expensesStore.getState();
+  useEffect(() => {
+    setInitialExpenses(value);
+  }, [value, setInitialExpenses]);
+
   return (
     <div className={styles.expensesRoot}>
-      <ExpensesContext.Provider value={{expenses: value}}>{children}</ExpensesContext.Provider>
+      <ExpensesContext.Provider value={{ expenses: value }}>
+        {children}
+      </ExpensesContext.Provider>
     </div>
   );
 }

@@ -25,6 +25,7 @@ async function createExpense(expense: TExpense): Promise<TFetchResponse> {
         category: expense.category,
       },
     });
+
   } catch (error) {
     console.error(error);
     if (error instanceof Error)
