@@ -4,7 +4,6 @@ import ExpensesHeaderGrid from "@/app/features/expenses/components/expenses-head
 import ExpensesRoot from "./features/expenses/components/expenses-root/ExpensesRoot";
 import ExpensesTableWrapper from "@/app/features/expenses/components/expenses-table-wrapper/ExpensesTableWrapper";
 import getExpenses from "./features/expenses/actions/getExpenses";
-import Loading from "./loading";
 import { Toaster } from "react-hot-toast";
 
 export default async function Home() {

@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useState } from "react";
+import React, { useState } from "react";
 import Table from "@/components/table/Table";
 import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
@@ -16,6 +16,7 @@ export default function ExpensesTableWrapper({
   expenses,
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const {addExpense} = expensesStore.getState();
 
 
@@ -28,8 +29,10 @@ export default function ExpensesTableWrapper({
 });
 
   async function _createExpense(expense: TExpense): Promise<void> {
+    setLoading(true);
     await createExpenseWithToast(expense);
     setIsAddingExpense(false);
+    setLoading(false);
   }
   
 
@@ -64,7 +67,7 @@ export default function ExpensesTableWrapper({
       key: "actions",
       label: "Actions",
       canSort: false,
-      render: (expense: TExpense) => (
+      render: () => (
         <button onClick={() => setIsAddingExpense(false)}>cancel</button>
       ),
     },
@@ -83,6 +86,7 @@ export default function ExpensesTableWrapper({
       </div>
       <Table<TExpense>
         isAddingEntry={isAddingExpense}
+        isLoading={isLoading}
         cancelEntryAdding={() => setIsAddingExpense(false)}
         addEntry={() => {
           setIsAddingExpense(true);

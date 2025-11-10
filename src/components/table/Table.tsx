@@ -19,12 +19,14 @@ type TTableProps<T> = {
   cancelEntryAdding: () => void;
   createEntry: (entry: T) => void;
   addEntry: () => void;
+  isLoading: boolean;
 };
 
 export default function Table<T extends Record<string, any>>({
   columns,
   data,
   isAddingEntry,
+  isLoading,
   cancelEntryAdding,
   createEntry,
   addEntry,
@@ -124,7 +126,8 @@ export default function Table<T extends Record<string, any>>({
                     small
                   />
                   <Button
-                    label="Save"
+                  //DO SPINNER INSTEAD STRING
+                    label={isLoading ? 'Saving...' : 'Save'}
                     onClick={() => createEntry(newEntry! as T)}
                     theme={ETheme.success}
                     small
