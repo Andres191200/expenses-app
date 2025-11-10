@@ -5,8 +5,9 @@ import ExpenseMetricCard from "../expense-metric-card/ExpenseMetricCard";
 import { expensesStore } from "@/lib/store";
 
 export default function ExpensesHeaderGrid() {
-  const getTotalExpensesValue = expensesStore((state) => state.getTotalExpensesValue);
-  const totalExpensesValue = getTotalExpensesValue();
+  const totalExpensesValue = expensesStore((state) => state.getTotalExpensesValue());
+
+
   return (
     <div className={styles.headerGridComponent}>
       <div className={styles.mainExpensesCost}>

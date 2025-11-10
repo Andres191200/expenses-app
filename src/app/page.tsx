@@ -7,7 +7,9 @@ import getExpenses from "./features/expenses/actions/getExpenses";
 import { Toaster } from "react-hot-toast";
 
 export default async function Home() {
+  console.log('getting expenses from db');
   const expenses: TExpense[] = await getExpenses();
+  console.log('got expenses from db');
 
   return (
     <div className={styles.homePage}>
