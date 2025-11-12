@@ -84,7 +84,6 @@ export default function Table<T extends Record<string, any>>({
           {isAddingEntry ? (
             <tr key={"new-expense"}>
               <td>
-                {/* THINK MAKE THIS INPUT MORE GENERIC */}
                 <input
                   type="text"
                   placeholder="new exp"
