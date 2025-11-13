@@ -1,19 +1,22 @@
 "use client";
 import React, { useState } from "react";
-import Table from "@/components/table/Table";
+import Table from "@/shared/components/table/Table";
 import styles from "./styles.module.scss";
 import { TExpense } from "../../models/expense";
-import Button from "@/components/button/Button";
-import { createExpense } from "@/actions/actions";
-import { withToast } from "@/components/hocs/withToast";
-import { expensesStore } from "@/lib/store";
+import Button from "@/shared/components/button/Button";
+import { withToast } from "@/shared/components/hocs/withToast";
+import { expensesStore } from "@/shared/lib/store";
+import { createExpense } from "../../actions/createExpense";
+import { TCategory } from "@/shared/actions/getCategories";
 
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
+  categories: TCategory[];
 };
 
 export default function ExpensesTableWrapper({
   expenses,
+  categories,
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
   const [isLoading, setLoading] = useState(false);
@@ -49,7 +52,7 @@ export default function ExpensesTableWrapper({
       key: "category",
       label: "Category",
       canSort: true,
-      render: (expense: TExpense) => <p>{expense.category}</p>,
+      render: (expense: TExpense) => <p>{expense.category.label}</p>,
     },
     {
       key: "value",
@@ -85,6 +88,7 @@ export default function ExpensesTableWrapper({
         />
       </div>
       <Table<TExpense>
+        categories={categories}
         isAddingEntry={isAddingExpense}
         isLoading={isLoading}
         cancelEntryAdding={() => setIsAddingExpense(false)}

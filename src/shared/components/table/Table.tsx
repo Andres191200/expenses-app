@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import Button, { ETheme, EVariant } from "../button/Button";
+import Dropdown from "../dropdown/Dropdown";
+import { TCategory } from "@/shared/actions/getCategories";
 
 type TColumn<T> = {
   key: string;
@@ -20,6 +22,7 @@ type TTableProps<T> = {
   createEntry: (entry: T) => void;
   addEntry: () => void;
   isLoading: boolean;
+  categories: TCategory[];
 };
 
 export default function Table<T extends Record<string, any>>({
@@ -30,6 +33,7 @@ export default function Table<T extends Record<string, any>>({
   cancelEntryAdding,
   createEntry,
   addEntry,
+  categories,
 }: TTableProps<T>) {
   const [newEntry, setNewEntry] = useState<Partial<T>>({});
 
@@ -84,7 +88,6 @@ export default function Table<T extends Record<string, any>>({
           {isAddingEntry ? (
             <tr key={"new-expense"}>
               <td>
-                {/* THINK MAKE THIS INPUT MORE GENERIC */}
                 <input
                   type="text"
                   placeholder="new exp"
@@ -95,13 +98,9 @@ export default function Table<T extends Record<string, any>>({
                 />
               </td>
               <td>
-                <input
-                  type="text"
-                  placeholder="cateogry dropdown here"
-                  value={(newEntry?.category as string) ?? ""}
-                  onChange={(e) =>
-                    handleChange("category", e.target.value as T["category"])
-                  }
+                <Dropdown<TTableProps<T>["categories"][number]>
+                  elements={categories}
+                  render={(category) => <div>{category.label}</div>}
                 />
               </td>
               <td>
@@ -126,8 +125,8 @@ export default function Table<T extends Record<string, any>>({
                     small
                   />
                   <Button
-                  //DO SPINNER INSTEAD STRING
-                    label={isLoading ? 'Saving...' : 'Save'}
+                    //DO SPINNER INSTEAD STRING
+                    label={isLoading ? "Saving..." : "Save"}
                     onClick={() => createEntry(newEntry! as T)}
                     theme={ETheme.success}
                     small

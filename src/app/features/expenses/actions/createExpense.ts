@@ -3,7 +3,7 @@
 import { TExpense } from "@/app/features/expenses/models/expense";
 import expenseSchema from "@/app/features/expenses/schemas/expense";
 import TFetchResponse from "@/app/models/fetch_response";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/shared/lib/prisma";
 import { revalidatePath } from "next/cache";
 
 async function createExpense(expense: TExpense): Promise<TFetchResponse> {
@@ -22,7 +22,7 @@ async function createExpense(expense: TExpense): Promise<TFetchResponse> {
       data: {
         title: expense.title,
         value: expense.value,
-        category: expense.category,
+        category: expense.category.label,
       },
     });
 

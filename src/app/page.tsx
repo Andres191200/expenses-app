@@ -5,10 +5,12 @@ import ExpensesRoot from "./features/expenses/components/expenses-root/ExpensesR
 import ExpensesTableWrapper from "@/app/features/expenses/components/expenses-table-wrapper/ExpensesTableWrapper";
 import getExpenses from "./features/expenses/actions/getExpenses";
 import { Toaster } from "react-hot-toast";
+import getCategories, { TCategory } from "@/shared/actions/getCategories";
 
 export default async function Home() {
   console.log('getting expenses from db');
   const expenses: TExpense[] = await getExpenses();
+  const categories: TCategory[] = await getCategories();
   console.log('got expenses from db');
 
   return (
@@ -17,7 +19,7 @@ export default async function Home() {
       <section className={styles.mainGridLayout}>
         <ExpensesRoot value={expenses}>
           <ExpensesHeaderGrid />
-          <ExpensesTableWrapper expenses={expenses} />
+          <ExpensesTableWrapper expenses={expenses} categories={categories}/>
         </ExpensesRoot>
       </section>
     </div>
