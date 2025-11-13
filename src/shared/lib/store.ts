@@ -12,9 +12,9 @@ type TExpensesStoreState = {
 export const expensesStore = create<TExpensesStoreState>((set, get) => ({
   expenses: [],
   setInitialExpenses: (expenses: TExpense[]) => {
-    return     set(() => ({
-      expenses
-    }))
+    return set(() => ({
+      expenses,
+    }));
   },
   addExpense: (expense: TExpense) =>
     set((state: TExpensesStoreState) => ({

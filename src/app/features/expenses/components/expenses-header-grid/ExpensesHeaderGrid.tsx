@@ -2,7 +2,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import ExpenseMetricCard from "../expense-metric-card/ExpenseMetricCard";
-import { expensesStore } from "@/lib/store";
+import { expensesStore } from "@/shared/lib/store";
 
 export default function ExpensesHeaderGrid() {
   const totalExpensesValue = expensesStore((state) => state.getTotalExpensesValue());

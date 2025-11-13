@@ -2,7 +2,7 @@
 import React, { createContext, useEffect } from "react";
 import { TExpense } from "../../models/expense";
 import styles from "./styles.module.scss";
-import { expensesStore } from "@/lib/store";
+import { expensesStore } from "@/shared/lib/store";
 
 type TExpensesRoot = {
   children: React.ReactNode;
