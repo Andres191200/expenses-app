@@ -18,10 +18,12 @@ async function createExpense(expense: TExpense): Promise<TFetchResponse> {
     };
   }
   try {
+    console.log('creating: ', expense);
     await prisma.expense.create({
       data: {
         title: expense.title,
-        value: expense.value,
+        value: expense.value.toString(),
+        categoryId: expense.category.id,
       },
     });
 

@@ -54,7 +54,7 @@ export default function ExpensesTableWrapper({
       key: "category",
       label: "Category",
       canSort: true,
-      render: (expense: TExpense) => <p>{expense.category.name}</p>,
+      render: (expense: TExpense) => <p>{expense.category?.name}</p>,
     },
     {
       key: "value",
