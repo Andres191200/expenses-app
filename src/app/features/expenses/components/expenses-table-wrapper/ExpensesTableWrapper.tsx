@@ -32,6 +32,8 @@ export default function ExpensesTableWrapper({
 });
 
   async function _createExpense(expense: TExpense): Promise<void> {
+    console.log(expense);
+    console.log('hola');
     setLoading(true);
     await createExpenseWithToast(expense);
     setIsAddingExpense(false);
@@ -52,7 +54,7 @@ export default function ExpensesTableWrapper({
       key: "category",
       label: "Category",
       canSort: true,
-      render: (expense: TExpense) => <p>{expense.category.label}</p>,
+      render: (expense: TExpense) => <p>{expense.category.name}</p>,
     },
     {
       key: "value",

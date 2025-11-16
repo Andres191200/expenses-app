@@ -1,37 +1,37 @@
 "use server";
 
 export type TCategory = {
-  id: string;
-  type: "food" | "transport" | "shopping" | "misc";
-  label: string;
-  color: string;
+  id: number;
+  name: string;
+  color: string | null;
+  icon: string | null;
 };
 
 export default async function getCategories() {
   const categories: TCategory[] = [
     {
-      id: "1",
-      type: "food",
-      label: "Food",
+      id: 1,
+      name: "Food",
       color: "#FF5733",
+      icon: null,
     },
     {
-      id: "2",
-      type: "transport",
-      label: "Transport",
+      id: 2,
+      name: "Transport",
       color: "#33FF57",
+      icon: null,
     },
     {
-      id: "3",
-      type: "shopping",
-      label: "Shopping",
+      id: 3,
+      name: "Shopping",
       color: "#5733FF",
+      icon: null,
     },
     {
-      id: "10",
-      type: "misc",
-      label: "misc",
+      id: 4,
+      name: "Misc",
       color: "#FF338C",
+      icon: null,
     },
   ];
 

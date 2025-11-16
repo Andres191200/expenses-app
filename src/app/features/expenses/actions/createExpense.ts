@@ -22,7 +22,6 @@ async function createExpense(expense: TExpense): Promise<TFetchResponse> {
       data: {
         title: expense.title,
         value: expense.value,
-        category: expense.category.label,
       },
     });
 

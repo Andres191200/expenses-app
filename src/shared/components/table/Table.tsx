@@ -100,7 +100,10 @@ export default function Table<T extends Record<string, any>>({
               <td>
                 <Dropdown<TTableProps<T>["categories"][number]>
                   elements={categories}
-                  render={(category) => <div>{category.label}</div>}
+                  render={(category) => <div>{category.name}</div>}
+                  onChange={(category) =>
+                    handleChange("category", category as T["category"])
+                  }
                 />
               </td>
               <td>
