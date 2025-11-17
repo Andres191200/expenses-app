@@ -1,16 +1,22 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./styles.module.scss";
-import { TExpense } from "@/app/features/expenses/models/expense";
 
 type TDropdownProps<T> = {
   elements: T[];
   render: (element: T) => React.ReactNode;
+  onChange: (element: T) => void;
 };
 
-export default function Dropdown<T>({ elements, render }: TDropdownProps<T>) {
-  const [value, setValue] = useState<TExpense["category"] | null>(null);
+export default function Dropdown<T>({ elements, render, onChange }: TDropdownProps<T>) {
+  const [value, setValue] = useState<T | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  function setDropdownValue(value: T): void {
+    setValue(value);
+    onChange(value);
+    toggleDropdown();
+  }
 
   function toggleDropdown(): void {
     setIsOpen((isOpen) => !isOpen);
@@ -19,12 +25,20 @@ export default function Dropdown<T>({ elements, render }: TDropdownProps<T>) {
   return (
     <div className={styles.dropdownComponent}>
       <button type="button" onClick={toggleDropdown}>
-        Category
+        {value ? render(value) : 'Category'}
       </button>
       {isOpen && (
         <div className={styles.dropdownContent}>
-          {/* <ul>{elements.map((element) => render(element))}</ul> */}
-          <ul>dropdown content</ul>
+          <ul>
+            {elements.map((element) => (
+              <li
+                key={JSON.stringify(element)}
+                onClick={() => setDropdownValue(element)}
+              >
+                {render(element)}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
