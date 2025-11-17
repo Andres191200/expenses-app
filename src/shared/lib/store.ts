@@ -26,6 +26,6 @@ export const expensesStore = create<TExpensesStoreState>((set, get) => ({
     })),
   getTotalExpensesValue: () => {
     const expenses = get().expenses;
-    return expenses.reduce((acc, curr) => acc + curr.value, 0);
+    return expenses.reduce((acc, curr) => acc + Number(curr.value), 0);
   },
 }));
