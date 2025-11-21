@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 async function createExpense(expense: TExpense): Promise<TFetchResponse> {
   "use server";
   try {
-    expenseSchema().safeParse({...expense, createdAt: new Date(Date.now())});
+    expenseSchema().safeParse(expense);
   } catch (error) {
     console.error(error);
     return {
@@ -18,7 +18,6 @@ async function createExpense(expense: TExpense): Promise<TFetchResponse> {
     };
   }
   try {
-    console.log('creating: ', expense);
     await prisma.expense.create({
       data: {
         title: expense.title,

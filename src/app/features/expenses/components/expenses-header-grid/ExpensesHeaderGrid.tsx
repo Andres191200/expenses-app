@@ -4,11 +4,13 @@ import styles from "./styles.module.scss";
 import ExpenseMetricCard from "../expense-metric-card/ExpenseMetricCard";
 import { expensesStore } from "@/shared/lib/store";
 import LineChart from "@/shared/components/charts/line-chart/LineChart";
+import { formatExpensesToLineChart } from "../../utils/expenses_formatter";
 
 export default function ExpensesHeaderGrid() {
   const totalExpensesValue = expensesStore((state) => Number(state.getTotalExpensesValue()));
+  const expenses = expensesStore((state) => state.expenses);
 
-
+  console.log(expenses);
   return (
     <div className={styles.headerGridComponent}>
       <div className={styles.mainExpensesCost}>
@@ -25,7 +27,7 @@ export default function ExpensesHeaderGrid() {
       </div>
       <div className={styles.topExpensesCategories} />
       <div className={styles.timeLineExpensesTracker}>
-        <LineChart />
+        <LineChart data={formatExpensesToLineChart(expenses)} />
       </div>
       <div className={styles.highestExpenseCost}>
         <ExpenseMetricCard.Card>

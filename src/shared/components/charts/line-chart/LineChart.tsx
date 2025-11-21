@@ -16,7 +16,11 @@ const data = [
   { date: "2025-10-03", value: 5 },
 ];
 
-export default function LineChart() {
+type TLineChartProps = {
+  data: {date: string, value: number}[];
+}
+
+export default function LineChart({data}: TLineChartProps) {
   return (
     <div className={styles.lineChartComponent}>
       <ResponsiveContainer width="100%" height="100%">

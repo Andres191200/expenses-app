@@ -32,10 +32,8 @@ export default function ExpensesTableWrapper({
 });
 
   async function _createExpense(expense: TExpense): Promise<void> {
-    console.log(expense);
-    console.log('hola');
     setLoading(true);
-    await createExpenseWithToast(expense);
+    await createExpenseWithToast({...expense, createdAt: new Date(Date.now())});
     setIsAddingExpense(false);
     setLoading(false);
   }

@@ -5,5 +5,5 @@ export type TExpense = {
     title: string;
     category: TCategory;
     value: number;
-    createdAt?: Date;
+    createdAt: Date;
 }
