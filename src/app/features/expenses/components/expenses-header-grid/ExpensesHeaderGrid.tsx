@@ -3,6 +3,7 @@ import React from "react";
 import styles from "./styles.module.scss";
 import ExpenseMetricCard from "../expense-metric-card/ExpenseMetricCard";
 import { expensesStore } from "@/shared/lib/store";
+import LineChart from "@/shared/components/charts/line-chart/LineChart";
 
 export default function ExpensesHeaderGrid() {
   const totalExpensesValue = expensesStore((state) => Number(state.getTotalExpensesValue()));
@@ -23,7 +24,9 @@ export default function ExpensesHeaderGrid() {
         </ExpenseMetricCard.Card>
       </div>
       <div className={styles.topExpensesCategories} />
-      <div className={styles.timeLineExpensesTracker} />
+      <div className={styles.timeLineExpensesTracker}>
+        <LineChart />
+      </div>
       <div className={styles.highestExpenseCost}>
         <ExpenseMetricCard.Card>
           <ExpenseMetricCard.Label label="Highest cost" />
