@@ -4,17 +4,29 @@ import styles from "./styles.module.scss";
 import ExpenseMetricCard from "../expense-metric-card/ExpenseMetricCard";
 import { expensesStore } from "@/shared/lib/store";
 import LineChart from "@/shared/components/charts/line-chart/LineChart";
+import { formatExpensesToLineChart } from "../../utils/expenses_formatter";
+import { formatCategoriesToLineChart } from "../../utils/categories_formatter";
 
 export default function ExpensesHeaderGrid() {
-  const totalExpensesValue = expensesStore((state) => Number(state.getTotalExpensesValue()));
+  const totalExpensesValue = expensesStore((state) =>
+    Number(state.getTotalExpensesValue())
+  );
+  const expenses = expensesStore((state) => state.expenses);
 
-
+  formatCategoriesToLineChart(expenses);
   return (
     <div className={styles.headerGridComponent}>
       <div className={styles.mainExpensesCost}>
         <ExpenseMetricCard.Card>
           <ExpenseMetricCard.Label label="Total" />
-          <ExpenseMetricCard.Value value={`$ ${totalExpensesValue.toFixed(2)}`} />
+          <ExpenseMetricCard.Value
+            value={`$ ${totalExpensesValue.toFixed(2)}`}
+          />
+        </ExpenseMetricCard.Card>
+      </div>
+      <div className={styles.mainCategoriesCost}>
+        <ExpenseMetricCard.Card>
+          <ExpenseMetricCard.Label label="Categories chart" />
         </ExpenseMetricCard.Card>
       </div>
       <div className={styles.monthlyExpensesCost}>
@@ -25,7 +37,10 @@ export default function ExpensesHeaderGrid() {
       </div>
       <div className={styles.topExpensesCategories} />
       <div className={styles.timeLineExpensesTracker}>
-        <LineChart />
+        <LineChart
+          data={formatExpensesToLineChart(expenses)}
+          stroke="var(--success)"
+        />
       </div>
       <div className={styles.highestExpenseCost}>
         <ExpenseMetricCard.Card>

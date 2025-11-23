@@ -17,9 +17,12 @@ export const expensesStore = create<TExpensesStoreState>((set, get) => ({
     }));
   },
   addExpense: (expense: TExpense) =>
-    set((state: TExpensesStoreState) => ({
-      expenses: [...state.expenses, expense],
-    })),
+    {
+      console.log('adding expense to store');
+      return set((state: TExpensesStoreState) => ({
+        expenses: [...state.expenses, expense],
+      }));
+    },
   removeExpense: (id: number) =>
     set((state: TExpensesStoreState) => ({
       expenses: state.expenses.filter((expense) => expense.id !== id),
