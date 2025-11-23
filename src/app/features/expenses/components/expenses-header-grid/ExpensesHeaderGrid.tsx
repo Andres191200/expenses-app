@@ -6,6 +6,7 @@ import { expensesStore } from "@/shared/lib/store";
 import LineChart from "@/shared/components/charts/line-chart/LineChart";
 import { formatExpensesToLineChart } from "../../utils/expenses_formatter";
 import { formatCategoriesToLineChart } from "../../utils/categories_formatter";
+import CustomActiveShapePieChart from "@/shared/components/charts/pie-chart/PieChart";
 
 export default function ExpensesHeaderGrid() {
   const totalExpensesValue = expensesStore((state) =>
@@ -26,7 +27,7 @@ export default function ExpensesHeaderGrid() {
       </div>
       <div className={styles.mainCategoriesCost}>
         <ExpenseMetricCard.Card>
-          <ExpenseMetricCard.Label label="Categories chart" />
+          <CustomActiveShapePieChart data={formatCategoriesToLineChart(expenses)}/>
         </ExpenseMetricCard.Card>
       </div>
       <div className={styles.monthlyExpensesCost}>
@@ -37,10 +38,12 @@ export default function ExpensesHeaderGrid() {
       </div>
       <div className={styles.topExpensesCategories} />
       <div className={styles.timeLineExpensesTracker}>
-        <LineChart
-          data={formatExpensesToLineChart(expenses)}
-          stroke="var(--success)"
-        />
+        <ExpenseMetricCard.Card>
+          <LineChart
+            data={formatExpensesToLineChart(expenses)}
+            stroke="var(--success)"
+          />
+        </ExpenseMetricCard.Card>
       </div>
       <div className={styles.highestExpenseCost}>
         <ExpenseMetricCard.Card>
