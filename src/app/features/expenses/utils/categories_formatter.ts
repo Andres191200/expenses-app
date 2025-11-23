@@ -1,18 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TExpense } from "../models/expense";
 
 function formatCategoriesToLineChart(expenses:TExpense[]){
-    const exp = expenses.reduce((acc:Partial<Record<string, number>>, expense: TExpense) => {
+    const exp = expenses.reduce((acc:Partial<Record<string, number | string>>[], expense: TExpense) => {
         const categoryName = expense.category.name;
-        console.log(typeof expense.value, expense.value);
-        if (!acc[categoryName]) {
-            acc[categoryName] = 0;
-        }
-        acc[categoryName] += Number(expense.value);
-        return acc;
-    }, {});
+        const expenseValue = expense.value;
+        const existingCategoryIndex = acc.findIndex(item => Object.keys(item)[0] === categoryName);
 
-    console.log('categories grouped: ', exp);
+        if (existingCategoryIndex !== -1) {
+            const existingCategory = acc[existingCategoryIndex];
+            const currentValue = existingCategory[categoryName] || 0;
+            acc[existingCategoryIndex] = { [categoryName]: currentValue as number+ expense.value };
+        } else {
+            acc.push({ name: categoryName, value: Number(expenseValue)});
+        }
+        return acc;
+    
+    }, []);
+
+    console.log('categories GROUPED: ', exp);
 
     return exp;
 }
