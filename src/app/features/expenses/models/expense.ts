@@ -1,4 +1,4 @@
-import { TCategory } from "@/shared/actions/getCategories";
+import { TCategory } from "./category";
 
 export type TExpense = {
     id: number;

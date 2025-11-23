@@ -1,11 +1,6 @@
 "use server";
 
-export type TCategory = {
-  id: number;
-  name: string;
-  color: string | null;
-  icon: string | null;
-};
+import { TCategory } from "@/app/features/expenses/models/category";
 
 export default async function getCategories() {
   const categories: TCategory[] = [

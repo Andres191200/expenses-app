@@ -3,7 +3,7 @@
   display: grid;
   grid-template-areas:
     "mainExpensesCost monthlyExpensesCost highestExpenseCost averageExpensesCost"
-    "mainExpensesCost timeLineExpensesTracker timeLineExpensesTracker timeLineExpensesTracker";
+    "mainCategoriesCost timeLineExpensesTracker timeLineExpensesTracker timeLineExpensesTracker";
   grid-template-rows: 120px 1fr;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-sm);
@@ -26,5 +26,8 @@
   }
   .highestExpenseCost {
     grid-area: highestExpenseCost;
+  }
+    .mainCategoriesCost {
+    grid-area: mainCategoriesCost;
   }
 }

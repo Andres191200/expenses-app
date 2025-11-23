@@ -5,7 +5,8 @@ import ExpensesRoot from "./features/expenses/components/expenses-root/ExpensesR
 import ExpensesTableWrapper from "@/app/features/expenses/components/expenses-table-wrapper/ExpensesTableWrapper";
 import getExpenses from "./features/expenses/actions/getExpenses";
 import { Toaster } from "react-hot-toast";
-import getCategories, { TCategory } from "@/shared/actions/getCategories";
+import getCategories from "@/shared/actions/getCategories";
+import { TCategory } from "./features/expenses/models/category";
 
 export default async function Home() {
   console.log('getting expenses from db');
