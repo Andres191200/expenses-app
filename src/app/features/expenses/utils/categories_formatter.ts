@@ -1,4 +1,3 @@
-import { number } from "zod";
 import { TExpense } from "../models/expense";
 
 function formatCategoriesToLineChart(expenses:TExpense[]){
@@ -17,6 +16,8 @@ function formatCategoriesToLineChart(expenses:TExpense[]){
         return acc;
     
     }, []);
+
+    console.log('categories GROUPED: ', exp);
 
     return exp;
 }
