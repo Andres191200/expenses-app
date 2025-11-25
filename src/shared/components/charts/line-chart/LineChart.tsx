@@ -18,7 +18,7 @@ type TLineChartProps = {
 export default function LineChart({ data, ...props }: TLineChartProps) {
   return (
     <div className={styles.lineChartComponent}>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer>
         <RechartsLineChart data={data}>
           <CartesianGrid
             strokeDasharray="3 3"

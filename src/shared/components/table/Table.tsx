@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import Button, { ETheme, EVariant } from "../button/Button";
 import Dropdown from "../dropdown/Dropdown";
-import { TCategory } from "@/shared/actions/getCategories";
+import { TCategory } from "@/app/features/expenses/models/category";
 
 type TColumn<T> = {
   key: string;
