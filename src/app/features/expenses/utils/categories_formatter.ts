@@ -1,6 +1,6 @@
 import { TExpense } from "../models/expense";
 
-function formatCategoriesToLineChart(expenses: TExpense[]) {
+function formatCategoriesToLineChart(expenses: TExpense[]):Partial<Record<string, string | number>>[] {
   const exp = expenses.reduce(
     (acc: Partial<Record<string, number | string>>[], expense: TExpense) => {
       const categoryName = expense.category.name;
