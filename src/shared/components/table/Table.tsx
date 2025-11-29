@@ -44,7 +44,6 @@ export default function Table<T extends Record<string, any>>({
   categories,
 }: TTableProps<T>) {
   const [newEntry, setNewEntry] = useState<Partial<T>>({});
-  const [errors, setErrors] = useState<Partial<Pick<T, "title" | "value">>>({});
 
   function handleChange<K extends keyof T>(key: K, value: T[K]): void {
     setNewEntry((prevState) => ({
@@ -56,26 +55,11 @@ export default function Table<T extends Record<string, any>>({
   function isValidEntry(entry: T): boolean {
     console.log("validating...");
     if (((entry.title || '')).trim().length === 0) {
-      setErrors(
-        (prevState) =>
-          ({
-            ...prevState,
-            title: "Title is required",
-          } as Partial<Pick<T, "title" | "value">>)
-      );
       setErrorsByColumnNumber(0);
       return false;
     }
     if (entry.value === 0) {
-      setErrors(
-        (prevState) =>
-          ({
-            ...prevState,
-            value: "Value must be greater than 0",
-          } as Partial<Pick<T, "title" | "value">>)
-      );
       setErrorsByColumnNumber(2);
-
       return false;
     }
     return true;
@@ -88,7 +72,7 @@ export default function Table<T extends Record<string, any>>({
     }
     createEntry(entry);
     setNewEntry({});
-    setErrors({});
+    //TODO: CALL SETERRORSBYCOLUMN TO CLEAN UP THE ERRORS STATES
   }
 
   return (
