@@ -1,144 +1,49 @@
-import { Cell, Pie, PieChart, Sector, SectorProps, Tooltip } from "recharts";
-import { TooltipIndex } from "recharts/types/state/tooltipSlice";
+import { Cell, Pie, PieChart, PieLabelRenderProps } from 'recharts';
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
-type Coordinate = {
-  x: number;
-  y: number;
-};
-
-type PieSectorData = {
-  percent?: number;
-  name?: string | number;
-  midAngle?: number;
-  middleRadius?: number;
-  tooltipPosition?: Coordinate;
-  value?: number;
-  paddingAngle?: number;
-  dataKey?: string;
-  payload?: Record<string, string>;
-};
-type PieSectorDataItem = React.SVGProps<SVGPathElement> &
-  Partial<SectorProps> &
-  PieSectorData;
+// #region Sample data
+const data = [
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
+];
 
 // #endregion
-const renderActiveShape = ({
-  cx,
-  cy,
-  midAngle,
-  innerRadius,
-  outerRadius,
-  startAngle,
-  endAngle,
-  fill,
-  payload,
-  percent,
-  value,
-}: PieSectorDataItem) => {
-  const RADIAN = Math.PI / 180;
-  const sin = Math.sin(-RADIAN * (midAngle ?? 1));
-  const cos = Math.cos(-RADIAN * (midAngle ?? 1));
-  const sx = (cx ?? 0) + ((outerRadius ?? 0) + 10) * cos;
-  const sy = (cy ?? 0) + ((outerRadius ?? 0) + 10) * sin;
-  const mx = (cx ?? 0) + ((outerRadius ?? 0) + 30) * cos;
-  const my = (cy ?? 0) + ((outerRadius ?? 0) + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-  const ey = my;
-  const textAnchor = cos >= 0 ? "start" : "end";
+const RADIAN = Math.PI / 180;
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: PieLabelRenderProps) => {
+  if (cx == null || cy == null || innerRadius == null || outerRadius == null) {
+    return null;
+  }
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const ncx = Number(cx);
+  const x = ncx + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
+  const ncy = Number(cy);
+  const y = ncy + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
 
   return (
-    <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-        {payload?.name ?? "Undefined text"}
-      </text>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={fill}
-      />
-      <Sector
-        cx={cx}
-        cy={cy}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        innerRadius={(outerRadius ?? 0) + 6}
-        outerRadius={(outerRadius ?? 0) + 10}
-        fill={fill}
-      />
-      <path
-        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-        stroke={fill}
-        fill="none"
-      />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        textAnchor={textAnchor}
-        fill="#333"
-      >{`PV ${value}`}</text>
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        dy={18}
-        textAnchor={textAnchor}
-        fill="#999"
-      >
-        {`(Rate ${((percent ?? 1) * 100).toFixed(2)}%)`}
-      </text>
-    </g>
+    <text x={x} y={y} fill="white" textAnchor={x > ncx ? 'start' : 'end'} dominantBaseline="central">
+      {`${((percent ?? 1) * 100).toFixed(0)}%`}
+    </text>
   );
 };
 
-export default function CustomActiveShapePieChart({
-  isAnimationActive = true,
-  defaultIndex = undefined,
-  data,
-}: {
-  isAnimationActive?: boolean;
-  defaultIndex?: TooltipIndex;
-  data: Partial<Record<string, number | string>>[];
-}) {
+export default function PieChartWithCustomizedLabel({ isAnimationActive = true, data }: { isAnimationActive?: boolean, data:  Partial<Record<string, string | number>>[]}) {
   return (
-    <PieChart
-      style={{
-        width: "100%",
-        height: "100%",
-        aspectRatio: 1,
-      }}
-      responsive
-      margin={{
-        top: 80,
-        right: 80,
-        bottom: 80,
-        left: 80,
-      }}
-    >
+    <PieChart style={{ width: '100%', maxWidth: '500px', maxHeight: '80vh', aspectRatio: 1 }} responsive>
       <Pie
-        activeShape={renderActiveShape}
         data={data}
-        cx="50%"
-        cy="50%"
-        innerRadius="60%"
-        outerRadius="80%"
+        labelLine={false}
+        label={renderCustomizedLabel}
         fill="#8884d8"
         dataKey="value"
         isAnimationActive={isAnimationActive}
       >
         {data.map((entry, index) => (
-          <Cell
-            key={`cell-${entry.name}`}
-            fill={COLORS[index % COLORS.length]}
-          />
+          <Cell key={`cell-${entry.name}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>
-      <Tooltip content={() => null} defaultIndex={defaultIndex} />
     </PieChart>
   );
 }

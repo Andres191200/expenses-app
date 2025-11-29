@@ -7,11 +7,17 @@ import Button, { ETheme, EVariant } from "../button/Button";
 import Dropdown from "../dropdown/Dropdown";
 import { TCategory } from "@/app/features/expenses/models/category";
 
+type TColumnError = {
+  status: boolean;
+  render: () => React.ReactNode;
+};
+
 type TColumn<T> = {
   key: string;
   label: string;
   canSort: boolean;
   render: (model: T) => React.ReactNode;
+  error: TColumnError;
 };
 
 type TTableProps<T> = {
@@ -21,6 +27,7 @@ type TTableProps<T> = {
   cancelEntryAdding: () => void;
   createEntry: (entry: T) => void;
   addEntry: () => void;
+  setErrorsByColumnNumber: (columnNumber: number) => void;
   isLoading: boolean;
   categories: TCategory[];
 };
@@ -33,6 +40,7 @@ export default function Table<T extends Record<string, any>>({
   cancelEntryAdding,
   createEntry,
   addEntry,
+  setErrorsByColumnNumber,
   categories,
 }: TTableProps<T>) {
   const [newEntry, setNewEntry] = useState<Partial<T>>({});
@@ -42,6 +50,29 @@ export default function Table<T extends Record<string, any>>({
       ...prevState,
       [key]: value,
     }));
+  }
+
+  function isValidEntry(entry: T): boolean {
+    console.log("validating...");
+    if (((entry.title || '')).trim().length === 0) {
+      setErrorsByColumnNumber(0);
+      return false;
+    }
+    if (entry.value === 0) {
+      setErrorsByColumnNumber(2);
+      return false;
+    }
+    return true;
+  }
+
+  function submitEntry(entry: T): void {
+    // input validations
+    if (!isValidEntry(entry)) {
+      return;
+    }
+    createEntry(entry);
+    setNewEntry({});
+    //TODO: CALL SETERRORSBYCOLUMN TO CLEAN UP THE ERRORS STATES
   }
 
   return (
@@ -96,6 +127,9 @@ export default function Table<T extends Record<string, any>>({
                     handleChange("title", e.target.value as T["title"])
                   }
                 />
+                {columns[0].error.status === true
+                  ? columns[0].error.render()
+                  : null}
               </td>
               <td>
                 <Dropdown<TTableProps<T>["categories"][number]>
@@ -115,6 +149,9 @@ export default function Table<T extends Record<string, any>>({
                     handleChange("value", Number(e.target.value) as T["value"])
                   }
                 />
+                {columns[2].error.status === true
+                  ? columns[2].error.render()
+                  : null}
               </td>
               <td>
                 <p>{new Date().toISOString()}</p>
@@ -130,7 +167,7 @@ export default function Table<T extends Record<string, any>>({
                   <Button
                     //DO SPINNER INSTEAD STRING
                     label={isLoading ? "Saving..." : "Save"}
-                    onClick={() => createEntry(newEntry! as T)}
+                    onClick={() => submitEntry(newEntry! as T)}
                     theme={ETheme.success}
                     small
                   />

@@ -8,5 +8,8 @@
     padding:var(--spacing-md);
 }
 
-.addNewExpense{
+.expenseName{
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
+

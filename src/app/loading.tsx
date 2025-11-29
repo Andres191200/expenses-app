@@ -11,6 +11,7 @@ export default function Loading() {
         <div className={headerGridStyles.topExpensesCategories} />
         <div className={headerGridStyles.timeLineExpensesTracker} />
         <div className={headerGridStyles.highestExpenseCost} />
+        <div className={headerGridStyles.mainCategoriesCost} />
       </div>
       <div className={tableStyles.expensesTableWrapperComponent} />
     </div>
