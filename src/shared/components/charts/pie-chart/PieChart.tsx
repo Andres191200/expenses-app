@@ -1,18 +1,10 @@
 import { Cell, Pie, PieChart, PieLabelRenderProps } from 'recharts';
 
-// #region Sample data
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-];
-
 // #endregion
 const RADIAN = Math.PI / 180;
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }: PieLabelRenderProps) => {
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, payload }: PieLabelRenderProps) => {
   if (cx == null || cy == null || innerRadius == null || outerRadius == null) {
     return null;
   }
@@ -24,7 +16,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 
   return (
     <text x={x} y={y} fill="white" textAnchor={x > ncx ? 'start' : 'end'} dominantBaseline="central">
-      {`${((percent ?? 1) * 100).toFixed(0)}%`}
+      {`${payload['name']} ${((percent ?? 1) * 100).toFixed(0)}%`}
     </text>
   );
 };
