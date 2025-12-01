@@ -9,6 +9,8 @@ import { expensesStore } from "@/shared/lib/store";
 import { createExpense } from "../../actions/createExpense";
 import { TCategory } from "../../models/category";
 
+const ELEMENTS_PER_PAGE = 5;
+
 type ExpensesTableWrapperProps = {
   expenses: TExpense[];
   categories: TCategory[];
@@ -19,6 +21,7 @@ export default function ExpensesTableWrapper({
   categories,
 }: ExpensesTableWrapperProps) {
   const [isAddingExpense, setIsAddingExpense] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const { addExpense } = expensesStore.getState();
   const [columns, setColumns] = useState([
@@ -146,6 +149,9 @@ export default function ExpensesTableWrapper({
         columns={columns}
         data={expenses}
         createEntry={(expense: TExpense) => _createExpense(expense)}
+        currentPage={currentPage}
+        elementsPerPage={ELEMENTS_PER_PAGE}
+        changePage={(page: number) => setCurrentPage(page)}
       />
     </div>
   );
