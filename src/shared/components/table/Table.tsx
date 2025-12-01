@@ -29,7 +29,10 @@ type TTableProps<T> = {
   addEntry: () => void;
   setErrorsByColumnNumber: (columnNumber: number) => void;
   isLoading: boolean;
+  currentPage: number;
+  elementsPerPage: number;
   categories: TCategory[];
+  changePage: (page: number) => void;
 };
 
 export default function Table<T extends Record<string, any>>({
@@ -42,6 +45,9 @@ export default function Table<T extends Record<string, any>>({
   addEntry,
   setErrorsByColumnNumber,
   categories,
+  currentPage,
+  elementsPerPage,
+  changePage,
 }: TTableProps<T>) {
   const [newEntry, setNewEntry] = useState<Partial<T>>({});
 
@@ -54,7 +60,7 @@ export default function Table<T extends Record<string, any>>({
 
   function isValidEntry(entry: T): boolean {
     console.log("validating...");
-    if (((entry.title || '')).trim().length === 0) {
+    if ((entry.title || "").trim().length === 0) {
       setErrorsByColumnNumber(0);
       return false;
     }
@@ -87,13 +93,18 @@ export default function Table<T extends Record<string, any>>({
         </thead>
         <tbody>
           {data.length > 0 || isAddingEntry ? (
-            data.map((item, rowIndex) => (
-              <tr key={rowIndex}>
-                {columns.map((column) => (
-                  <td key={column.key}>{column.render(item)}</td>
-                ))}
-              </tr>
-            ))
+            data
+              .slice(
+                (currentPage - 1) * elementsPerPage + 1,
+                currentPage * elementsPerPage + 1
+              )
+              .map((item, rowIndex) => (
+                <tr key={rowIndex}>
+                  {columns.map((column) => (
+                    <td key={column.key}>{column.render(item)}</td>
+                  ))}
+                </tr>
+              ))
           ) : (
             <tr>
               <td colSpan={columns.length}>
@@ -177,6 +188,17 @@ export default function Table<T extends Record<string, any>>({
           ) : null}
         </tbody>
       </table>
+      <div className={styles.pagination}>
+        {
+          data.length > elementsPerPage ? (
+            Array.from({ length: Math.ceil(data.length / elementsPerPage) }, (_, i) => i + 1).map((i) => (
+                <button type="button" onClick={() => changePage(i)} key={i + Date.now()} className={`${styles.paginationButton} ${currentPage === i ? styles.active : null}`}>
+                  {i}
+                </button>
+              ))
+          ) : null
+        }
+      </div>
     </div>
   );
 }

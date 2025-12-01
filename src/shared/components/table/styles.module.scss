@@ -63,3 +63,25 @@
   display: flex;
   gap:var(--spacing-sm);
 }
+
+.pagination{
+  margin-block:var(--spacing-md);
+  display: flex;
+  gap:var(--spacing-sm);
+  align-items: center;
+  justify-content: center;
+}
+
+.paginationButton{
+  background-color: var(--bg-light);
+  padding:var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  border: none;
+
+  &.active{
+    font-weight: bolder;
+    background-color: var(--highlight);
+  }
+
+}
+
