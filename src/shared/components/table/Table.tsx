@@ -91,41 +91,6 @@ export default function Table<T extends Record<string, any>>({
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 || isAddingEntry ? (
-            data
-              .slice(
-                (currentPage - 1) * elementsPerPage + 1,
-                currentPage * elementsPerPage + 1
-              )
-              .map((item, rowIndex) => (
-                <tr key={rowIndex}>
-                  {columns.map((column) => (
-                    <td key={column.key}>{column.render(item)}</td>
-                  ))}
-                </tr>
-              ))
-          ) : (
-            <tr>
-              <td colSpan={columns.length}>
-                <div className={styles.emptyExpenses}>
-                  <div className={styles.emptyExpensesMessage}>
-                    <Image
-                      src={"/icons/info.svg"}
-                      height={30}
-                      width={30}
-                      alt="info icon"
-                    />
-                    <p>There is no expenses yet</p>
-                  </div>
-                  <Button
-                    label="Create one"
-                    onClick={() => addEntry()}
-                    variant={EVariant.primary}
-                  />
-                </div>
-              </td>
-            </tr>
-          )}
           {isAddingEntry ? (
             <tr key={"new-expense"}>
               <td>
@@ -185,6 +150,41 @@ export default function Table<T extends Record<string, any>>({
               </td>
             </tr>
           ) : null}
+          {data.length > 0 || isAddingEntry ? (
+            data
+              .slice(
+                (currentPage - 1) * elementsPerPage + 1,
+                currentPage * elementsPerPage + 1
+              )
+              .map((item, rowIndex) => (
+                <tr key={rowIndex}>
+                  {columns.map((column) => (
+                    <td key={column.key}>{column.render(item)}</td>
+                  ))}
+                </tr>
+              ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length}>
+                <div className={styles.emptyExpenses}>
+                  <div className={styles.emptyExpensesMessage}>
+                    <Image
+                      src={"/icons/info.svg"}
+                      height={30}
+                      width={30}
+                      alt="info icon"
+                    />
+                    <p>There is no expenses yet</p>
+                  </div>
+                  <Button
+                    label="Create one"
+                    onClick={() => addEntry()}
+                    variant={EVariant.primary}
+                  />
+                </div>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className={styles.pagination}>

@@ -1,9 +1,10 @@
+import { Decimal } from "@prisma/client/runtime/library";
 import { TCategory } from "./category";
 
 export type TExpense = {
     id: number;
     title: string;
     category: TCategory;
-    value: string;
+    value: Decimal;
     createdAt: Date;
 }
