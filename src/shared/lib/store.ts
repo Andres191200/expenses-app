@@ -18,7 +18,6 @@ export const expensesStore = create<TExpensesStoreState>((set, get) => ({
   },
   addExpense: (expense: TExpense) =>
     {
-      console.log('adding expense to store');
       return set((state: TExpensesStoreState) => ({
         expenses: [...state.expenses, expense],
       }));

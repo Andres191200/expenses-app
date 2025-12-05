@@ -59,7 +59,6 @@ export default function Table<T extends Record<string, any>>({
   }
 
   function isValidEntry(entry: T): boolean {
-    console.log("validating...");
     if ((entry.title || "").trim().length === 0) {
       setErrorsByColumnNumber(0);
       return false;

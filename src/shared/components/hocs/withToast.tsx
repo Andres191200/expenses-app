@@ -12,7 +12,6 @@ export function withToast<T extends unknown[]>(
     if (res.error) {
       toast.error(res.error);
     } else if (res.success) {
-        console.log('success!!');
         actions?.onSuccess(...args);
       toast.success(messages?.success ?? 'Success!');
     }
