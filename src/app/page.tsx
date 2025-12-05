@@ -11,7 +11,7 @@ import { TCategory } from "./features/expenses/models/category";
 export default async function Home() {
   const expenses: TExpense[] = await getExpenses();
   const categories: TCategory[] = await getCategories();
-
+  console.log('exp: ', expenses);
   return (
     <div className={styles.homePage}>
       <Toaster />

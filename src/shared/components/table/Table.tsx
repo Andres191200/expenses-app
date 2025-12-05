@@ -50,6 +50,16 @@ export default function Table<T extends Record<string, any>>({
   changePage,
 }: TTableProps<T>) {
   const [newEntry, setNewEntry] = useState<Partial<T>>({});
+  const emptyTable = data.length === 0;
+  const filteredData =
+    data.length < elementsPerPage
+      ? data
+      : data.slice(
+          (currentPage - 1) * elementsPerPage + 1,
+          currentPage * elementsPerPage + 1
+        );
+
+    console.log('filteredData: ', filteredData);
 
   function handleChange<K extends keyof T>(key: K, value: T[K]): void {
     setNewEntry((prevState) => ({
@@ -150,19 +160,14 @@ export default function Table<T extends Record<string, any>>({
               </td>
             </tr>
           ) : null}
-          {data.length > 0 || isAddingEntry ? (
-            data
-              .slice(
-                (currentPage - 1) * elementsPerPage + 1,
-                currentPage * elementsPerPage + 1
-              )
-              .map((item, rowIndex) => (
-                <tr key={rowIndex}>
-                  {columns.map((column) => (
-                    <td key={column.key}>{column.render(item)}</td>
-                  ))}
-                </tr>
-              ))
+          {!emptyTable || isAddingEntry ? (
+            filteredData.map((item, rowIndex) => (
+              <tr key={rowIndex}>
+                {columns.map((column) => (
+                  <td key={column.key}>{column.render(item)}</td>
+                ))}
+              </tr>
+            ))
           ) : (
             <tr>
               <td colSpan={columns.length}>
@@ -188,15 +193,23 @@ export default function Table<T extends Record<string, any>>({
         </tbody>
       </table>
       <div className={styles.pagination}>
-        {
-          data.length > elementsPerPage ? (
-            Array.from({ length: Math.ceil(data.length / elementsPerPage) }, (_, i) => i + 1).map((i) => (
-                <button type="button" onClick={() => changePage(i)} key={i + Date.now()} className={`${styles.paginationButton} ${currentPage === i ? styles.active : null}`}>
-                  {i}
-                </button>
-              ))
-          ) : null
-        }
+        {data.length > elementsPerPage
+          ? Array.from(
+              { length: Math.ceil(data.length / elementsPerPage) },
+              (_, i) => i + 1
+            ).map((i) => (
+              <button
+                type="button"
+                onClick={() => changePage(i)}
+                key={i + Date.now()}
+                className={`${styles.paginationButton} ${
+                  currentPage === i ? styles.active : null
+                }`}
+              >
+                {i}
+              </button>
+            ))
+          : null}
       </div>
     </div>
   );
