@@ -61,7 +61,7 @@ export default function ExpensesTableWrapper({
           <p style={{ color: "red" }}>Value must be greater than 0</p>
         ),
       },
-      render: (expense: TExpense) => <p>{expense.value}</p>,
+      render: (expense: TExpense) => <p>{expense.value.toString()}</p>,
     },
     {
       key: "date",
@@ -125,6 +125,7 @@ export default function ExpensesTableWrapper({
       });
     })
   }
+  console.log('expenses: ', expenses);
 
   return (
     <div className={styles.expensesTableWrapperComponent}>

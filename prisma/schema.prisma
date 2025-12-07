@@ -20,6 +20,6 @@ model Expense {
   title      String
   categoryId Int
   category   Category @relation(fields: [categoryId], references: [id])
-  value      String
+  value      Decimal @db.Decimal(10, 2)
   createdAt  DateTime @default(now())
 }

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
-import styles from "./styles.module.scss";
+import { TCategory } from "@/app/features/expenses/models/category";
 import Image from "next/image";
+import React, { useState } from "react";
 import Button, { ETheme, EVariant } from "../button/Button";
 import Dropdown from "../dropdown/Dropdown";
-import { TCategory } from "@/app/features/expenses/models/category";
+import styles from "./styles.module.scss";
 
 type TColumnError = {
   status: boolean;
@@ -50,6 +50,16 @@ export default function Table<T extends Record<string, any>>({
   changePage,
 }: TTableProps<T>) {
   const [newEntry, setNewEntry] = useState<Partial<T>>({});
+  const emptyTable = data.length === 0;
+  const filteredData =
+    data.length < elementsPerPage
+      ? data
+      : data.slice(
+          (currentPage - 1) * elementsPerPage + 1,
+          currentPage * elementsPerPage + 1
+        );
+
+    console.log('filteredData: ', filteredData);
 
   function handleChange<K extends keyof T>(key: K, value: T[K]): void {
     setNewEntry((prevState) => ({
@@ -59,7 +69,6 @@ export default function Table<T extends Record<string, any>>({
   }
 
   function isValidEntry(entry: T): boolean {
-    console.log("validating...");
     if ((entry.title || "").trim().length === 0) {
       setErrorsByColumnNumber(0);
       return false;
@@ -92,46 +101,12 @@ export default function Table<T extends Record<string, any>>({
           </tr>
         </thead>
         <tbody>
-          {data.length > 0 || isAddingEntry ? (
-            data
-              .slice(
-                (currentPage - 1) * elementsPerPage + 1,
-                currentPage * elementsPerPage + 1
-              )
-              .map((item, rowIndex) => (
-                <tr key={rowIndex}>
-                  {columns.map((column) => (
-                    <td key={column.key}>{column.render(item)}</td>
-                  ))}
-                </tr>
-              ))
-          ) : (
-            <tr>
-              <td colSpan={columns.length}>
-                <div className={styles.emptyExpenses}>
-                  <div className={styles.emptyExpensesMessage}>
-                    <Image
-                      src={"/icons/info.svg"}
-                      height={30}
-                      width={30}
-                      alt="info icon"
-                    />
-                    <p>There is no expenses yet</p>
-                  </div>
-                  <Button
-                    label="Create one"
-                    onClick={() => addEntry()}
-                    variant={EVariant.primary}
-                  />
-                </div>
-              </td>
-            </tr>
-          )}
           {isAddingEntry ? (
             <tr key={"new-expense"}>
               <td>
                 <input
                   type="text"
+                  maxLength={25}
                   placeholder="new exp"
                   value={(newEntry?.title as string) ?? ""}
                   onChange={(e) =>
@@ -180,24 +155,63 @@ export default function Table<T extends Record<string, any>>({
                     label={isLoading ? "Saving..." : "Save"}
                     onClick={() => submitEntry(newEntry! as T)}
                     theme={ETheme.success}
+                    disabled={isLoading}
                     small
                   />
                 </div>
               </td>
             </tr>
           ) : null}
+          {!emptyTable || isAddingEntry ? (
+            filteredData.reverse().map((item, rowIndex) => (
+              <tr key={rowIndex}>
+                {columns.map((column) => (
+                  <td key={column.key}>{column.render(item)}</td>
+                ))}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={columns.length}>
+                <div className={styles.emptyExpenses}>
+                  <div className={styles.emptyExpensesMessage}>
+                    <Image
+                      src={"/icons/info.svg"}
+                      height={30}
+                      width={30}
+                      alt="info icon"
+                    />
+                    <p>There is no expenses yet</p>
+                  </div>
+                  <Button
+                    label="Create one"
+                    onClick={() => addEntry()}
+                    variant={EVariant.primary}
+                  />
+                </div>
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
       <div className={styles.pagination}>
-        {
-          data.length > elementsPerPage ? (
-            Array.from({ length: Math.ceil(data.length / elementsPerPage) }, (_, i) => i + 1).map((i) => (
-                <button type="button" onClick={() => changePage(i)} key={i + Date.now()} className={`${styles.paginationButton} ${currentPage === i ? styles.active : null}`}>
-                  {i}
-                </button>
-              ))
-          ) : null
-        }
+        {data.length > elementsPerPage
+          ? Array.from(
+              { length: Math.ceil(data.length / elementsPerPage) },
+              (_, i) => i + 1
+            ).map((i) => (
+              <button
+                type="button"
+                onClick={() => changePage(i)}
+                key={i + Date.now()}
+                className={`${styles.paginationButton} ${
+                  currentPage === i ? styles.active : null
+                }`}
+              >
+                {i}
+              </button>
+            ))
+          : null}
       </div>
     </div>
   );

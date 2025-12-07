@@ -9,10 +9,9 @@ import getCategories from "@/shared/actions/getCategories";
 import { TCategory } from "./features/expenses/models/category";
 
 export default async function Home() {
-  console.log('getting expenses from db');
   const expenses: TExpense[] = await getExpenses();
   const categories: TCategory[] = await getCategories();
-
+  console.log('exp: ', expenses);
   return (
     <div className={styles.homePage}>
       <Toaster />

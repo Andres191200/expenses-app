@@ -7,6 +7,32 @@ import LineChart from "@/shared/components/charts/line-chart/LineChart";
 import { formatExpensesToLineChart } from "../../utils/expenses_formatter";
 import { formatCategoriesToLineChart } from "../../utils/categories_formatter";
 import CustomActiveShapePieChart from "@/shared/components/charts/pie-chart/PieChart";
+import { TExpense } from "../../models/expense";
+
+function getMonthlyExpensesValue(expenses: TExpense[]){
+    const monthlyExpenses = expenses.reduce((acc: number, expense: TExpense) => {
+        const expenseMonth = new Date(expense.createdAt).getMonth();
+        const currentMonth = new Date().getMonth();
+
+          if (expenseMonth === currentMonth && typeof expense.value === 'number') {
+            return acc + expense.value; 
+        }
+        return acc;
+    }, 0);
+    return monthlyExpenses;
+}
+
+function getMostExpensiveExpense(expenses: TExpense[]){
+    if (expenses.length === 0) {
+        return "$ 0.00";
+    }
+
+    const mostExpensive = expenses.reduce((prev: TExpense, current: TExpense) => {
+        return (prev.value > current.value) ? prev : current;
+    });
+
+    return `$ ${mostExpensive.value.toFixed(2)}`;
+}
 
 export default function ExpensesHeaderGrid() {
   const totalExpensesValue = expensesStore((state) =>
@@ -33,7 +59,8 @@ export default function ExpensesHeaderGrid() {
       <div className={styles.monthlyExpensesCost}>
         <ExpenseMetricCard.Card>
           <ExpenseMetricCard.Label label="Monthly" />
-          <ExpenseMetricCard.Value value="$ 75.114,55" />
+          {/* calculate monthly expenses amount */}
+          <ExpenseMetricCard.Value value={`$ ${getMonthlyExpensesValue(expenses).toFixed(2)}`} />
         </ExpenseMetricCard.Card>
       </div>
       <div className={styles.topExpensesCategories} />
@@ -48,7 +75,7 @@ export default function ExpensesHeaderGrid() {
       <div className={styles.highestExpenseCost}>
         <ExpenseMetricCard.Card>
           <ExpenseMetricCard.Label label="Highest cost" />
-          <ExpenseMetricCard.Value value="$ 29.000,00 (Pizza)" />
+          <ExpenseMetricCard.Value value={getMostExpensiveExpense(expenses)} />
         </ExpenseMetricCard.Card>
       </div>
     </div>
