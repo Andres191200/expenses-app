@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
-import styles from "./styles.module.scss";
+import { TCategory } from "@/app/features/expenses/models/category";
 import Image from "next/image";
+import React, { useState } from "react";
 import Button, { ETheme, EVariant } from "../button/Button";
 import Dropdown from "../dropdown/Dropdown";
-import { TCategory } from "@/app/features/expenses/models/category";
+import styles from "./styles.module.scss";
 
 type TColumnError = {
   status: boolean;
@@ -106,6 +106,7 @@ export default function Table<T extends Record<string, any>>({
               <td>
                 <input
                   type="text"
+                  maxLength={25}
                   placeholder="new exp"
                   value={(newEntry?.title as string) ?? ""}
                   onChange={(e) =>
@@ -154,6 +155,7 @@ export default function Table<T extends Record<string, any>>({
                     label={isLoading ? "Saving..." : "Save"}
                     onClick={() => submitEntry(newEntry! as T)}
                     theme={ETheme.success}
+                    disabled={isLoading}
                     small
                   />
                 </div>
@@ -161,7 +163,7 @@ export default function Table<T extends Record<string, any>>({
             </tr>
           ) : null}
           {!emptyTable || isAddingEntry ? (
-            filteredData.map((item, rowIndex) => (
+            filteredData.reverse().map((item, rowIndex) => (
               <tr key={rowIndex}>
                 {columns.map((column) => (
                   <td key={column.key}>{column.render(item)}</td>
